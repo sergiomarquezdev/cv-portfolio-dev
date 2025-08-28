@@ -1,4 +1,4 @@
-# Portfolio de Sergio Márquez - cv.sergiomarquez.dev
+# CV - Portfolio de Sergio Márquez - cv.sergiomarquez.dev
 
 <div align="center">
   <img src="https://img.shields.io/badge/Astro-5.8.0-orange" alt="Astro">
@@ -18,7 +18,7 @@
 
 ## 🎯 Descripción
 
-Portfolio personal moderno y optimizado, construido con **Astro** y **Tailwind CSS**. Muestra mi experiencia como Desarrollador Full Stack e IA/ML, proyectos y habilidades, con foco en rendimiento y experiencia de usuario.
+CV - Portfolio personal moderno y optimizado, construido con **Astro** y **Tailwind CSS**. Muestra mi experiencia como Desarrollador Full Stack e IA/ML, proyectos y habilidades, con foco en rendimiento y experiencia de usuario.
 
 ## ✨ Características Principales
 
