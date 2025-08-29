@@ -78,7 +78,7 @@ jobs:
           else
             echo "🔧 Applying security fixes..."
             npm audit fix --force || true
-            
+
             if ! git diff --quiet package*.json; then
               echo "✅ Applied security fixes"
               echo "SECURITY_FIXED=true" >> $GITHUB_ENV
@@ -92,16 +92,16 @@ jobs:
         if: github.event.inputs.fix_type == 'all' || github.event.inputs.fix_type == 'dependencies'
         run: |
           echo "📦 Checking for dependency updates..."
-          
+
           # Check for outdated packages (excluding major versions)
           npm outdated --json > outdated.json || true
-          
+
           if [ -s outdated.json ]; then
             echo "📦 Found outdated dependencies"
             # Update patch and minor versions only
             npx npm-check-updates -u --target minor || true
             npm install || true
-            
+
             if ! git diff --quiet package*.json; then
               echo "✅ Updated dependencies"
               echo "DEPS_UPDATED=true" >> $GITHUB_ENV
@@ -113,17 +113,17 @@ jobs:
             echo "✅ All dependencies are up to date"
             echo "DEPS_UPDATED=false" >> $GITHUB_ENV
           fi
-          
+
           rm -f outdated.json
 
       - name: 🧪 Validate changes
         if: contains(github.env, 'LINTING_FIXED=true') || contains(github.env, 'SECURITY_FIXED=true') || contains(github.env, 'DEPS_UPDATED=true')
         run: |
           echo "🧪 Validating all changes..."
-          
+
           # Run validation pipeline
           npm run validate
-          
+
           if [ $? -eq 0 ]; then
             echo "✅ All validations passed"
             echo "VALIDATION_PASSED=true" >> $GITHUB_ENV
@@ -140,7 +140,7 @@ jobs:
         id: changes
         run: |
           echo "📝 Generating change summary..."
-          
+
           SUMMARY=""
           if [ "$LINTING_FIXED" = "true" ]; then
             SUMMARY="$SUMMARY\n- 🧹 Applied ESLint and Prettier fixes"
@@ -151,7 +151,7 @@ jobs:
           if [ "$DEPS_UPDATED" = "true" ]; then
             SUMMARY="$SUMMARY\n- 📦 Updated dependencies"
           fi
-          
+
           if [ -n "$SUMMARY" ]; then
             echo "HAS_CHANGES=true" >> $GITHUB_OUTPUT
             echo "SUMMARY<<EOF" >> $GITHUB_OUTPUT
@@ -186,7 +186,7 @@ jobs:
           echo "🔒 Security fixes applied: ${SECURITY_FIXED:-false}"
           echo "📦 Dependencies updated: ${DEPS_UPDATED:-false}"
           echo "✅ Validation passed: ${VALIDATION_PASSED:-false}"
-          
+
           if [ "${{ steps.changes.outputs.HAS_CHANGES }}" = "true" ]; then
             echo "🎉 Auto-maintenance completed successfully!"
           else

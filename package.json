@@ -23,7 +23,22 @@
     "clean:cache": "rimraf node_modules/.vite .astro/cache",
     "clean:all": "npm run clean && rimraf node_modules",
     "reset": "npm run clean:all && npm install",
-    "optimize": "npm run clean:cache && npm run build:prod"
+    "optimize": "npm run clean:cache && npm run build:prod",
+    "prepare": "husky install",
+    "pre-commit": "npm run lint && npm run type-check",
+    "commit": "npm run pre-commit && git add . && git commit",
+    "hooks:install": "husky install",
+    "hooks:test": "echo 'Testing pre-commit hook...' && npm run pre-commit",
+    "dev:analyze": "node scripts/dev-helper.js analyze",
+    "dev:deps": "node scripts/dev-helper.js deps",
+    "dev:size": "node scripts/dev-helper.js size",
+    "dev:health": "node scripts/dev-helper.js health",
+    "dev:help": "node scripts/dev-helper.js help",
+    "debug:build": "npm run build:analyze",
+    "debug:deps": "npm ls --depth=0",
+    "debug:outdated": "npm outdated",
+    "debug:audit": "npm audit",
+    "debug:cache": "npm cache verify"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

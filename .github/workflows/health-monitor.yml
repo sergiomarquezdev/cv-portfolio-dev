@@ -87,19 +87,19 @@ jobs:
 
           # Check SSL certificate expiry
           CERT_INFO=$(echo | openssl s_client -servername cv.sergiomarquez.dev -connect cv.sergiomarquez.dev:443 2>/dev/null | openssl x509 -noout -dates)
-          
+
           if [ $? -eq 0 ]; then
             echo "✅ SSL certificate is valid"
             echo "$CERT_INFO"
-            
+
             # Extract expiry date and check if it's within 30 days
             EXPIRY_DATE=$(echo "$CERT_INFO" | grep notAfter | cut -d= -f2)
             EXPIRY_TIMESTAMP=$(date -d "$EXPIRY_DATE" +%s)
             CURRENT_TIMESTAMP=$(date +%s)
             DAYS_UNTIL_EXPIRY=$(( (EXPIRY_TIMESTAMP - CURRENT_TIMESTAMP) / 86400 ))
-            
+
             echo "📅 Certificate expires in $DAYS_UNTIL_EXPIRY days"
-            
+
             if [ "$DAYS_UNTIL_EXPIRY" -lt 30 ]; then
               echo "⚠️ SSL certificate expires soon: $DAYS_UNTIL_EXPIRY days"
               echo "SSL_EXPIRY_WARNING=true" >> $GITHUB_ENV
@@ -244,7 +244,7 @@ jobs:
                 issue_number: issue.number,
                 state: 'closed'
               });
-              
+
               console.log(`✅ Closed resolved health issue #${issue.number}`);
             }
 
@@ -256,7 +256,7 @@ jobs:
           echo "⏰ Check time: $(date)"
           echo "✅ Total checks: ${{ steps.health_check.outputs.total_checks || '0' }}"
           echo "❌ Checks failed: ${{ steps.health_check.outputs.failed_checks || '0' }}"
-          
+
           if [ "${{ job.status }}" = "success" ]; then
             echo "🎉 Overall status: HEALTHY"
           else

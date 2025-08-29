@@ -48,7 +48,7 @@ jobs:
         id: security
         run: |
           echo "🔍 Running security audit..."
-          
+
           # Run audit and capture results
           if npm audit --audit-level=moderate; then
             echo "✅ No security vulnerabilities found"
@@ -56,11 +56,11 @@ jobs:
           else
             echo "⚠️ Security vulnerabilities detected"
             echo "has_vulnerabilities=true" >> $GITHUB_OUTPUT
-            
+
             # Apply security fixes
             echo "🔒 Applying security fixes..."
             npm audit fix --force || true
-            
+
             if ! git diff --quiet package*.json; then
               echo "✅ Security fixes applied"
               echo "fixes_applied=true" >> $GITHUB_OUTPUT
@@ -75,16 +75,16 @@ jobs:
         if: github.event.inputs.update_type != 'security'
         run: |
           echo "📈 Checking for dependency updates..."
-          
+
           UPDATE_TYPE="${{ github.event.inputs.update_type || 'minor' }}"
-          
+
           # Check for outdated packages
           npm outdated --json > outdated.json || true
-          
+
           if [ -s outdated.json ]; then
             OUTDATED_COUNT=$(cat outdated.json | jq 'length' 2>/dev/null || echo "0")
             echo "📦 Found $OUTDATED_COUNT outdated dependencies"
-            
+
             # Apply updates based on type
             case $UPDATE_TYPE in
               'patch')
@@ -100,7 +100,7 @@ jobs:
                 npx npm-check-updates -u --target latest --reject tailwindcss,postcss,autoprefixer,lightningcss || true
                 ;;
             esac
-            
+
             # Install updated dependencies
             if ! git diff --quiet package.json; then
               echo "📦 Installing updated dependencies..."
@@ -114,7 +114,7 @@ jobs:
             echo "✅ All dependencies are up to date"
             echo "updates_applied=false" >> $GITHUB_OUTPUT
           fi
-          
+
           rm -f outdated.json
 
       - name: 🧪 Validate changes
@@ -122,7 +122,7 @@ jobs:
         if: steps.security.outputs.fixes_applied == 'true' || steps.dependencies.outputs.updates_applied == 'true'
         run: |
           echo "🧪 Running comprehensive validation..."
-          
+
           # Run the full validation pipeline
           if npm run validate; then
             echo "✅ All validations passed"
@@ -141,18 +141,18 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
-          
+
           COMMIT_TYPE="${{ github.event.inputs.update_type || 'minor' }}"
           SUMMARY=""
-          
+
           if [ "${{ steps.security.outputs.fixes_applied }}" = "true" ]; then
             SUMMARY="$SUMMARY\n- 🔒 Applied security fixes"
           fi
-          
+
           if [ "${{ steps.dependencies.outputs.updates_applied }}" = "true" ]; then
             SUMMARY="$SUMMARY\n- � Updated dependencies ($COMMIT_TYPE)"
           fi
-          
+
           COMMIT_MSG="� Automated dependency maintenance
 
           $SUMMARY
@@ -162,7 +162,7 @@ jobs:
           - � Updated on: $(date +'%Y-%m-%d %H:%M:%S UTC')
 
           [skip ci]"
-          
+
           git commit -m "$COMMIT_MSG" || echo "No changes to commit"
           git push || echo "No changes to push"
 
