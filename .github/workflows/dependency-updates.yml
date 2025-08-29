@@ -1,0 +1,178 @@
+name: 📦 Dependency Updates & Security Maintenance
+
+on:
+  schedule:
+    # Run weekly maintenance on Sundays at 3 AM (after auto-fix workflow)
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+    inputs:
+      update_type:
+        description: 'Type of updates to perform'
+        required: true
+        default: 'minor'
+        type: choice
+        options:
+          - 'patch'
+          - 'minor'
+          - 'major'
+          - 'security'
+
+permissions:
+  contents: write
+  pull-requests: write
+  security-events: write
+
+jobs:
+  dependency-updates:
+    name: 📦 Automated Dependency Updates
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v5.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: ⚙️ Set up Node.js 22.x
+        uses: actions/setup-node@v4.4.0
+        with:
+          node-version: 22.x
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🔍 Security audit & fixes
+        id: security
+        run: |
+          echo "🔍 Running security audit..."
+          
+          # Run audit and capture results
+          if npm audit --audit-level=moderate; then
+            echo "✅ No security vulnerabilities found"
+            echo "has_vulnerabilities=false" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️ Security vulnerabilities detected"
+            echo "has_vulnerabilities=true" >> $GITHUB_OUTPUT
+            
+            # Apply security fixes
+            echo "🔒 Applying security fixes..."
+            npm audit fix --force || true
+            
+            if ! git diff --quiet package*.json; then
+              echo "✅ Security fixes applied"
+              echo "fixes_applied=true" >> $GITHUB_OUTPUT
+            else
+              echo "ℹ️ No security fixes applied"
+              echo "fixes_applied=false" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+      - name: 📈 Dependency updates
+        id: dependencies
+        if: github.event.inputs.update_type != 'security'
+        run: |
+          echo "📈 Checking for dependency updates..."
+          
+          UPDATE_TYPE="${{ github.event.inputs.update_type || 'minor' }}"
+          
+          # Check for outdated packages
+          npm outdated --json > outdated.json || true
+          
+          if [ -s outdated.json ]; then
+            OUTDATED_COUNT=$(cat outdated.json | jq 'length' 2>/dev/null || echo "0")
+            echo "📦 Found $OUTDATED_COUNT outdated dependencies"
+            
+            # Apply updates based on type
+            case $UPDATE_TYPE in
+              'patch')
+                echo "🔧 Updating patch versions only..."
+                npx npm-check-updates -u --target patch || true
+                ;;
+              'minor')
+                echo "🔧 Updating minor versions..."
+                npx npm-check-updates -u --target minor || true
+                ;;
+              'major')
+                echo "🔧 Updating major versions (with caution)..."
+                npx npm-check-updates -u --target latest --reject tailwindcss,postcss,autoprefixer,lightningcss || true
+                ;;
+            esac
+            
+            # Install updated dependencies
+            if ! git diff --quiet package.json; then
+              echo "📦 Installing updated dependencies..."
+              npm install || true
+              echo "updates_applied=true" >> $GITHUB_OUTPUT
+            else
+              echo "ℹ️ No dependency updates to install"
+              echo "updates_applied=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "✅ All dependencies are up to date"
+            echo "updates_applied=false" >> $GITHUB_OUTPUT
+          fi
+          
+          rm -f outdated.json
+
+      - name: 🧪 Validate changes
+        id: validation
+        if: steps.security.outputs.fixes_applied == 'true' || steps.dependencies.outputs.updates_applied == 'true'
+        run: |
+          echo "🧪 Running comprehensive validation..."
+          
+          # Run the full validation pipeline
+          if npm run validate; then
+            echo "✅ All validations passed"
+            echo "passed=true" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Validation failed - rolling back changes"
+            git reset --hard HEAD
+            git clean -fd
+            echo "passed=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: 🚀 Commit and push updates
+        if: steps.validation.outputs.passed == 'true'
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          
+          COMMIT_TYPE="${{ github.event.inputs.update_type || 'minor' }}"
+          SUMMARY=""
+          
+          if [ "${{ steps.security.outputs.fixes_applied }}" = "true" ]; then
+            SUMMARY="$SUMMARY\n- 🔒 Applied security fixes"
+          fi
+          
+          if [ "${{ steps.dependencies.outputs.updates_applied }}" = "true" ]; then
+            SUMMARY="$SUMMARY\n- � Updated dependencies ($COMMIT_TYPE)"
+          fi
+          
+          COMMIT_MSG="� Automated dependency maintenance
+
+          $SUMMARY
+
+          - ✅ All validations passed
+          - � Security audit completed
+          - � Updated on: $(date +'%Y-%m-%d %H:%M:%S UTC')
+
+          [skip ci]"
+          
+          git commit -m "$COMMIT_MSG" || echo "No changes to commit"
+          git push || echo "No changes to push"
+
+      - name: � Summary report
+        if: always()
+        run: |
+          echo "� Dependency Update Summary"
+          echo "=========================="
+          echo "� Security vulnerabilities: ${{ steps.security.outputs.has_vulnerabilities || 'false' }}"
+          echo "� Security fixes applied: ${{ steps.security.outputs.fixes_applied || 'false' }}"
+          echo "� Dependencies updated: ${{ steps.dependencies.outputs.updates_applied || 'false' }}"
+          echo "✅ Validation passed: ${{ steps.validation.outputs.passed || 'N/A' }}"
+          echo "⏰ Completed at: $(date)"
