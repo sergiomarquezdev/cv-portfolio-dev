@@ -1,31 +1,53 @@
 ---
-// Font loading optimizado - solo cargar lo necesario de forma async
-// Removed: import "@fontsource-variable/inter";
-// Removed: import "@fontsource/montserrat/400.css";
-// Removed: import "@fontsource/montserrat/700.css";
-// Removed: import "@fontsource/fira-code/400.css";
+/**
+ * Main Layout Component
+ * 
+ * @description
+ * Primary layout component that wraps all pages with essential structure including:
+ * - HTML document structure with proper meta tags
+ * - Structured data (JSON-LD) for SEO
+ * - Performance optimizations (font loading, critical CSS)
+ * - Accessibility features (skip links, semantic structure)
+ * - Theme system and responsive design
+ */
+
+// Performance optimization: Load fonts asynchronously instead of blocking render
+// Previous synchronous imports removed for better Core Web Vitals
+// Font loading is now handled in the HTML head with preload hints
 
 import globalStyles from "../styles/global.css?inline";
 import ScrollToTop from "@/components/ScrollToTop.astro";
 import Header from "@/components/Header.astro";
 import cvData from "@cv";
 
+/**
+ * Layout component props interface
+ */
 export interface Props {
+  /** Page title (appended to site name) */
   title?: string;
+  /** Page description for meta tags and social sharing */
   description?: string;
 }
 
+// Generate canonical URL for SEO
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
+// Default page metadata with SEO-optimized content
 const {
   title = "Sergio Márquez | Backend & IA/ML Engineer",
   description = "Portfolio de Sergio Márquez Pérez, Ingeniero Backend e IA/ML con experiencia en Java Spring, Python FastAPI, Docker, Kubernetes y Google Cloud. Especialista en automatización, LLMOps y desarrollo de APIs escalables.",
 } = Astro.props;
 
+// Extract CV data for structured data generation
 const { basics, work, education, highlightedSkills, otherSkills, databasesSkills } = cvData;
 const siteUrl = Astro.site ? Astro.site.toString().slice(0, -1) : basics.url;
 const fullNameForSchema = basics.name.includes("Pérez") ? basics.name : basics.name + " Pérez";
 
+/**
+ * Generate Person Schema.org structured data for SEO
+ * Provides rich snippets for search engines and social media
+ */
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -34,6 +56,7 @@ const personSchema = {
   image: `${siteUrl}${basics.image}`,
   jobTitle: "Ingeniero Backend IA/ML",
   description: "Ingeniero Backend e IA/ML especializado en Java, Spring, Python, FastAPI, Docker, Kubernetes y Google Cloud",
+  // Safe access to work data with null checking for TypeScript strict mode
   worksFor:
     work.length > 0 && work[0]
       ? {
@@ -41,11 +64,14 @@ const personSchema = {
           name: work[0].company,
         }
       : undefined,
+  // Educational background for professional context
   alumniOf: education.map((edu) => ({
     "@type": "EducationalOrganization",
     name: edu.institution,
   })),
+  // Social media and professional profiles
   sameAs: basics.profiles.map((profile) => profile.url),
+  // Technical skills and expertise areas
   knowsAbout: [
     ...highlightedSkills.map((skill) => skill.name),
     ...otherSkills.map((skill) => skill.name),

@@ -1,0 +1,12 @@
+dist/
+node_modules/
+.astro/
+*.log
+.env
+.env.*
+!.env.example
+coverage/
+.nyc_output/
+.cache/
+.vercel/
+.netlify/

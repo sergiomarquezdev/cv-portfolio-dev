@@ -1,6 +1,20 @@
 /**
- * Utility function to highlight technical keywords in text content
- * Used across multiple components for consistent keyword highlighting
+ * Highlights technical keywords in text content with semantic markup
+ * 
+ * @param {string} text - The input text to process for keyword highlighting
+ * @returns {string} HTML string with highlighted keywords wrapped in semantic elements
+ * 
+ * @example
+ * ```typescript
+ * const description = "I work with Java and Python for backend development";
+ * const highlighted = highlightKeywords(description);
+ * // Returns: "I work with <strong class="...">Java</strong> and <strong class="...">Python</strong> for <strong class="...">backend</strong> development"
+ * ```
+ * 
+ * @description
+ * This utility automatically detects and highlights predefined technical keywords
+ * with consistent styling across the portfolio. Keywords include programming languages,
+ * frameworks, tools, and technical concepts relevant to the professional experience.
  */
 export const highlightKeywords = (text: string): string => {
   const keywords = [
@@ -31,10 +45,22 @@ export const highlightKeywords = (text: string): string => {
 };
 
 /**
- * Common CSS class patterns for consistent styling
+ * Common CSS class patterns for consistent styling across components
+ * 
+ * @description
+ * Centralized style patterns ensure consistent visual design throughout the portfolio.
+ * These patterns follow the design system and provide semantic styling for different UI elements.
+ * 
+ * @example
+ * ```astro
+ * <div class={stylePatterns.card}>
+ *   <h3 class={stylePatterns.heading.h3}>Title</h3>
+ *   <p class={stylePatterns.text.body}>Content</p>
+ * </div>
+ * ```
  */
 export const stylePatterns = {
-  // Container patterns
+  /** Container and layout patterns */
   card: "bg-background-surface p-l rounded-lg border border-border shadow-lg",
   section: "max-w-6xl mx-auto px-6 md:px-8 lg:px-6",
 
