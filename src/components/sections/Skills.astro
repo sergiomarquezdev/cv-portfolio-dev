@@ -71,28 +71,3 @@ const skillCategories = [
     }
   </div>
 </Section>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const skillItems = entry.target.querySelectorAll(".skill-item");
-            skillItems.forEach((item, index) => {
-              const el = item as HTMLElement;
-              el.style.setProperty("--animation-delay", `${index * 50}ms`);
-              el.classList.add("animate-fade-in-up");
-            });
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    document.querySelectorAll(".skill-category").forEach((category) => {
-      observer.observe(category);
-    });
-  });
-</script>

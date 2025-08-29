@@ -105,22 +105,127 @@ const personSchema = {
     <Header />
     <slot />
 
-    <script is:inline type="module">
-      if ("IntersectionObserver" in window) {
-        window.lazyLoadObserver = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("in-view");
+    <!-- Unified JavaScript System -->
+    <script is:inline>
+      // Unified Observer System for Portfolio
+      (function() {
+        let observersMap = new Map();
+        let progressBar = null;
+
+        function initializeObservers() {
+          // Configuración para cada tipo de animación
+          const observerConfigs = [
+            {
+              selector: '.fade-in-section',
+              callback: function(element) {
+                element.classList.add('in-view');
+              },
+              options: {
+                rootMargin: '0px 0px -100px 0px',
+                threshold: 0.1
               }
+            },
+            {
+              selector: '.skill-category',
+              callback: function(element) {
+                const skillItems = element.querySelectorAll('.skill-item');
+                skillItems.forEach(function(item, index) {
+                  item.style.setProperty('--animation-delay', (index * 50) + 'ms');
+                  item.classList.add('animate-fade-in-up');
+                });
+              },
+              options: { threshold: 0.1 }
+            },
+            {
+              selector: '.paragraph-container',
+              callback: function(element) {
+                const index = Array.from(document.querySelectorAll('.paragraph-container')).indexOf(element);
+                element.style.setProperty('--animation-delay', (index * 200) + 'ms');
+                element.classList.add('animate-fade-in-up');
+              },
+              options: { threshold: 0.1 }
+            }
+          ];
+
+          // Crear observers optimizados
+          observerConfigs.forEach(function(config) {
+            const observer = new IntersectionObserver(
+              function(entries) {
+                entries.forEach(function(entry) {
+                  if (entry.isIntersecting) {
+                    config.callback(entry.target);
+                    observer.unobserve(entry.target);
+                  }
+                });
+              },
+              config.options
+            );
+
+            // Observar elementos existentes
+            document.querySelectorAll(config.selector).forEach(function(element) {
+              observer.observe(element);
             });
-          },
-          {
-            rootMargin: "50px 0px",
-            threshold: 0.1,
+
+            observersMap.set(config.selector, observer);
+          });
+        }
+
+        function initializeProgressBar() {
+          progressBar = document.getElementById('reading-progress');
+          if (!progressBar) return;
+
+          function updateProgressBar() {
+            const scrollPosition = window.scrollY;
+            const totalHeight = document.body.scrollHeight - window.innerHeight;
+            const progress = (scrollPosition / totalHeight) * 100;
+            progressBar.style.width = Math.max(0, Math.min(100, progress)) + '%';
           }
-        );
-      }
+
+          // Throttled scroll handler for better performance
+          let ticking = false;
+          function handleScroll() {
+            if (!ticking) {
+              requestAnimationFrame(function() {
+                updateProgressBar();
+                ticking = false;
+              });
+              ticking = true;
+            }
+          }
+
+          window.addEventListener('scroll', handleScroll, { passive: true });
+          window.addEventListener('resize', updateProgressBar, { passive: true });
+          updateProgressBar();
+        }
+
+        function initializePortfolio() {
+          if ('IntersectionObserver' in window) {
+            initializeObservers();
+          } else {
+            // Fallback for browsers without IntersectionObserver
+            document.querySelectorAll('.fade-in-section, .skill-category, .paragraph-container').forEach(function(element) {
+              element.classList.add('in-view', 'animate-fade-in-up');
+            });
+          }
+
+          initializeProgressBar();
+        }
+
+        // Initialize
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initializePortfolio);
+        } else {
+          initializePortfolio();
+        }
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', function() {
+          observersMap.forEach(function(observer) {
+            observer.disconnect();
+          });
+          observersMap.clear();
+        });
+      })();
     </script>
   </body>
 </html>
