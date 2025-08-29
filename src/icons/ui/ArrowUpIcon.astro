@@ -1,13 +1,20 @@
 ---
-// Icon: Arrow Up - used for scroll to top button
+import type { IconProps } from "../../types/components";
+
+export interface Props extends IconProps {}
+
+const { class: className, size = 24, ...rest } = Astro.props;
 ---
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
-  class:list={Astro.props.class}
+  class={className}
+  width={size}
+  height={size}
   fill="none"
   viewBox="0 0 24 24"
   stroke="currentColor"
+  {...rest}
 >
   <title>Scroll to top</title>
   <path

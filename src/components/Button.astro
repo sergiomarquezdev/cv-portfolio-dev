@@ -1,0 +1,59 @@
+---
+import type { ButtonProps } from "../types/components";
+
+export interface Props extends ButtonProps {
+  variant?: 'primary' | 'secondary' | 'accent';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  target?: string;
+  rel?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  class: className = '',
+  disabled = false,
+  type = 'button',
+  href,
+  target,
+  rel,
+  ...rest
+} = Astro.props;
+
+const baseClasses = "inline-flex items-center gap-2 font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-surface rounded-md";
+
+const variantClasses = {
+  primary: "bg-primary text-white hover:bg-primary/90 focus:ring-primary",
+  secondary: "bg-secondary text-white hover:bg-secondary/90 focus:ring-secondary",
+  accent: "bg-accent-cta text-text dark:text-text hover:bg-accent-cta/80 hover:scale-105 focus:ring-accent-cta",
+};
+
+const sizeClasses = {
+  sm: "px-3 py-1.5 text-sm",
+  md: "px-6 py-2",
+  lg: "px-8 py-3 text-lg",
+};
+
+const buttonClasses = [
+  baseClasses,
+  variantClasses[variant],
+  sizeClasses[size],
+  disabled && "opacity-50 cursor-not-allowed",
+  className
+].filter(Boolean).join(" ");
+
+const Element = href ? 'a' : 'button';
+---
+
+<Element
+  class={buttonClasses}
+  disabled={disabled && !href}
+  type={!href ? type : undefined}
+  href={href}
+  target={target}
+  rel={rel || (target === '_blank' ? 'noopener noreferrer' : undefined)}
+  {...rest}
+>
+  <slot />
+</Element>
