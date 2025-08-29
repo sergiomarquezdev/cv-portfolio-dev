@@ -6,9 +6,6 @@
   <img src="https://img.shields.io/badge/Tailwind_CSS-3.4.17-38B2AC" alt="Tailwind CSS">
   <img src="https://img.shields.io/badge/Partytown-2.1.4-green" alt="Partytown">
   <img src="https://img.shields.io/badge/Sitemap-3.4.0-brightgreen" alt="Sitemap">
-  <a href="https://github.com/sergiomarquezdev/portfolio-dev/actions/workflows/deploy.yml">
-    <img src="https://github.com/sergiomarquezdev/portfolio-dev/actions/workflows/deploy.yml/badge.svg" alt="Deployment Status">
-  </a>
   <br>
   <br>
   <strong>
