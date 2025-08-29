@@ -1,10 +1,10 @@
 ---
-import Section from "../Section.astro";
-import { education, certificates } from "@cv";
-import { CertificateIcon as Certificate } from "@/icons";
+import Section from '../Section.astro';
+import { education, certificates } from '@cv';
+import { CertificateIcon as Certificate } from '@/icons';
 
 const certificateLinkClasses =
-  "inline-flex items-center gap-2 rounded-md bg-background-surface px-4 py-2 text-sm font-semibold text-text-muted transition hover:bg-background hover:text-text border border-border";
+  'inline-flex items-center gap-2 rounded-md bg-background-surface px-4 py-2 text-sm font-semibold text-text-muted transition hover:bg-background hover:text-text border border-border';
 ---
 
 <Section title="Formación" id="formacion">
@@ -15,9 +15,9 @@ const certificateLinkClasses =
         <ul class="space-y-l">
           {certificates.map(({ name, date, issuer, url }) => {
             const dateObj = new Date(date);
-            const formattedDate = dateObj.toLocaleDateString("es-ES", {
-              year: "numeric",
-              month: "long",
+            const formattedDate = dateObj.toLocaleDateString('es-ES', {
+              year: 'numeric',
+              month: 'long',
             });
 
             return (
@@ -29,11 +29,13 @@ const certificateLinkClasses =
                   <header class="mb-s flex flex-col items-start justify-between gap-2 md:flex-row md:items-center">
                     <div class="flex-1">
                       <h4 class="text-h4 font-semibold text-text">{name}</h4>
-                      <p class="mt-1 text-body-reg text-text-muted">Emitido por {issuer}</p>
+                      <p class="mt-1 text-body-reg text-text-muted">
+                        Emitido por {issuer}
+                      </p>
                     </div>
                     <time
                       class="text-sm font-medium text-text-muted"
-                      datetime={dateObj.toISOString().split("T")[0]}
+                      datetime={dateObj.toISOString().split('T')[0]}
                     >
                       {formattedDate}
                     </time>
@@ -61,11 +63,15 @@ const certificateLinkClasses =
   {
     education.length > 0 && (
       <div>
-        <h3 class="mb-m text-lg font-semibold text-text-muted">Educación reglada</h3>
+        <h3 class="mb-m text-lg font-semibold text-text-muted">
+          Educación reglada
+        </h3>
         <ul class="space-y-l">
           {education.map(({ institution, startDate, endDate, area }) => {
             const startYear = new Date(startDate).getFullYear();
-            const endYear = endDate ? new Date(endDate).getFullYear() : "Actual";
+            const endYear = endDate
+              ? new Date(endDate).getFullYear()
+              : 'Actual';
             const years = `${startYear} - ${endYear}`;
 
             return (
@@ -75,8 +81,13 @@ const certificateLinkClasses =
 
                 <article>
                   <header class="mb-2 flex flex-col items-start justify-between gap-1 md:flex-row md:items-center">
-                    <h4 class="text-h4 font-semibold text-text">{institution}</h4>
-                    <time class="text-sm font-medium text-text-muted" datetime={years}>
+                    <h4 class="text-h4 font-semibold text-text">
+                      {institution}
+                    </h4>
+                    <time
+                      class="text-sm font-medium text-text-muted"
+                      datetime={years}
+                    >
                       {years}
                     </time>
                   </header>

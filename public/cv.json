@@ -199,7 +199,13 @@
       "name": "One dAIly Blog",
       "isActive": true,
       "description": "One dAIly Blog, un innovador proyecto personal de Sergio Márquez, genera contenido automáticamente a diario usando la API de OpenAI. Frontend en Angular y TailwindCSS, con backend en Node.js, Express.js y PostgreSQL.",
-      "highlights": ["Angular", "Node.js", "OpenAI", "PostgreSQL", "TailwindCSS"],
+      "highlights": [
+        "Angular",
+        "Node.js",
+        "OpenAI",
+        "PostgreSQL",
+        "TailwindCSS"
+      ],
       "url": "https://blog.sergiomarquez.dev/",
       "github": [
         "https://github.com/sergiomarquezdev/one-daily-blog",

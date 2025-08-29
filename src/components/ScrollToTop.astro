@@ -1,5 +1,5 @@
 ---
-import { ArrowUpIcon } from "../icons";
+import { ArrowUpIcon } from '../icons';
 ---
 
 <button
@@ -14,43 +14,55 @@ import { ArrowUpIcon } from "../icons";
 </button>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const scrollToTopButton = document.getElementById("scroll-to-top") as HTMLButtonElement | null;
+  document.addEventListener('DOMContentLoaded', () => {
+    const scrollToTopButton = document.getElementById(
+      'scroll-to-top'
+    ) as HTMLButtonElement | null;
     if (!scrollToTopButton) return;
 
     const toggleScrollToTopButton = () => {
       const shouldBeVisible = window.scrollY > window.innerHeight * 0.5;
 
       if (shouldBeVisible) {
-        scrollToTopButton.classList.remove("scale-0", "opacity-0");
-        scrollToTopButton.classList.add("scale-100", "opacity-100", "animate-pulse");
-        scrollToTopButton.setAttribute("aria-hidden", "false");
-        scrollToTopButton.setAttribute("tabindex", "0");
+        scrollToTopButton.classList.remove('scale-0', 'opacity-0');
+        scrollToTopButton.classList.add(
+          'scale-100',
+          'opacity-100',
+          'animate-pulse'
+        );
+        scrollToTopButton.setAttribute('aria-hidden', 'false');
+        scrollToTopButton.setAttribute('tabindex', '0');
       } else {
-        scrollToTopButton.classList.remove("scale-100", "opacity-100", "animate-pulse");
-        scrollToTopButton.classList.add("scale-0", "opacity-0");
-        scrollToTopButton.setAttribute("aria-hidden", "true");
-        scrollToTopButton.setAttribute("tabindex", "-1");
+        scrollToTopButton.classList.remove(
+          'scale-100',
+          'opacity-100',
+          'animate-pulse'
+        );
+        scrollToTopButton.classList.add('scale-0', 'opacity-0');
+        scrollToTopButton.setAttribute('aria-hidden', 'true');
+        scrollToTopButton.setAttribute('tabindex', '-1');
       }
     };
 
     const scrollToTop = () => {
       window.scrollTo({
         top: 0,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Enter" || e.key === " ") {
+      if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         scrollToTop();
       }
     };
 
-    window.addEventListener("scroll", toggleScrollToTopButton, { passive: true });
-    scrollToTopButton.addEventListener("click", scrollToTop);
-    scrollToTopButton.addEventListener("keydown", handleKeyDown);
+    window.addEventListener('scroll', toggleScrollToTopButton, {
+      passive: true,
+    });
+    scrollToTopButton.addEventListener('click', scrollToTop);
+    scrollToTopButton.addEventListener('keydown', handleKeyDown);
 
     toggleScrollToTopButton();
   });

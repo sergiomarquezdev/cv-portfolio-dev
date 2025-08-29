@@ -1,16 +1,16 @@
 ---
-import Section from "../Section.astro";
-import { basics } from "@cv";
-import { highlightKeywords, stylePatterns } from "../../utils/content";
+import Section from '../Section.astro';
+import { basics } from '@cv';
+import { highlightKeywords, stylePatterns } from '../../utils/content';
 
 const { summaryIntro, summaryExperience, summaryObjectives } = basics;
 
 const contactButtonClasses =
-  "inline-flex items-center gap-2 px-6 py-2 rounded-md bg-accent-cta text-text dark:text-text font-medium transition-all duration-200 hover:bg-accent-cta/80 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-cta focus:ring-offset-2 focus:ring-offset-background-surface";
+  'inline-flex items-center gap-2 px-6 py-2 rounded-md bg-accent-cta text-text dark:text-text font-medium transition-all duration-200 hover:bg-accent-cta/80 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-cta focus:ring-offset-2 focus:ring-offset-background-surface';
 ---
 
 <Section title="Sobre mí" id="sobre-mi">
-  <article class={stylePatterns.card}>
+  <article class:list={stylePatterns.card}>
     <div class="space-y-m">
       <div class="paragraph-container flex items-start gap-m mb-s">
         <div
@@ -29,8 +29,15 @@ const contactButtonClasses =
 
       <div class="paragraph-container">
         <div class="border-l-4 border-secondary-blue pl-m">
-          <h3 class="text-body-lg font-semibold text-text mb-s flex items-center gap-2">
-            <svg class="w-5 h-5 text-secondary-blue" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+          <h3
+            class="text-body-lg font-semibold text-text mb-s flex items-center gap-2"
+          >
+            <svg
+              class="w-5 h-5 text-secondary-blue"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              aria-hidden="true"
+            >
               <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
             Experiencia Técnica
@@ -46,8 +53,15 @@ const contactButtonClasses =
         <div
           class="bg-gradient-to-r from-secondary-purple/10 to-accent-pink/5 p-m rounded-lg border border-secondary-purple/20"
         >
-          <h3 class="text-body-lg font-semibold text-text mb-s flex items-center gap-2">
-            <svg class="w-5 h-5 text-secondary-purple" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+          <h3
+            class="text-body-lg font-semibold text-text mb-s flex items-center gap-2"
+          >
+            <svg
+              class="w-5 h-5 text-secondary-purple"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              aria-hidden="true"
+            >
               <path
                 fill-rule="evenodd"
                 d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z"
@@ -67,8 +81,11 @@ const contactButtonClasses =
       <p class="text-sm text-text-muted mb-s">¿Interesado en colaborar?</p>
       <a href="#contacto" class:list={[contactButtonClasses]}>
         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-          <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+          <path
+            d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+          ></path>
+          <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
+          ></path>
         </svg>
         Hablemos
       </a>

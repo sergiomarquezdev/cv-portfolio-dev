@@ -1,17 +1,20 @@
 ---
-import Section from "../Section.astro";
+import Section from '../Section.astro';
 // Get the auth header value from environment variables
 const N8N_CONTACT_FORM_SECRET = import.meta.env.N8N_CONTACT_FORM_SECRET;
-const WEBHOOK_URL = "https://n8n.sergiomarquez.dev/webhook/portfolio-contact-form";
+const WEBHOOK_URL =
+  'https://n8n.sergiomarquez.dev/webhook/portfolio-contact-form';
 
 const inputClasses =
-  "w-full px-4 py-3 rounded-md border border-border bg-background text-text focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 placeholder:text-text-muted";
+  'w-full px-4 py-3 rounded-md border border-border bg-background text-text focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 placeholder:text-text-muted';
 const submitButtonClasses =
-  "px-8 py-3 rounded-md bg-accent-cta text-text dark:text-text font-semibold transition-all duration-200 shadow-button hover:bg-accent-cta/80 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-cta focus:ring-offset-2 focus:ring-offset-background-surface disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100";
+  'px-8 py-3 rounded-md bg-accent-cta text-text dark:text-text font-semibold transition-all duration-200 shadow-button hover:bg-accent-cta/80 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-cta focus:ring-offset-2 focus:ring-offset-background-surface disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100';
 ---
 
 <Section title="Contacto" id="contacto">
-  <article class="bg-background-surface p-l rounded-lg border border-border shadow-lg">
+  <article
+    class="bg-background-surface p-l rounded-lg border border-border shadow-lg"
+  >
     <form
       id="contact-form"
       class="needs-validation"
@@ -31,7 +34,9 @@ const submitButtonClasses =
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-m">
         <div class="form-group">
-          <label for="name" class="block text-text-muted font-medium mb-2">Nombre *</label>
+          <label for="name" class="block text-text-muted font-medium mb-2"
+            >Nombre *</label
+          >
           <input
             type="text"
             id="name"
@@ -43,8 +48,12 @@ const submitButtonClasses =
             placeholder="Tu nombre completo"
             autocomplete="name"
           />
-          <div class="feedback empty-feedback">Por favor, proporciona tu nombre.</div>
-          <div class="feedback invalid-feedback">El nombre debe tener al menos 2 caracteres.</div>
+          <div class="feedback empty-feedback">
+            Por favor, proporciona tu nombre.
+          </div>
+          <div class="feedback invalid-feedback">
+            El nombre debe tener al menos 2 caracteres.
+          </div>
         </div>
 
         <div class="form-group">
@@ -61,13 +70,19 @@ const submitButtonClasses =
             placeholder="tu@email.com"
             autocomplete="email"
           />
-          <div class="feedback empty-feedback">Por favor, proporciona tu correo.</div>
-          <div class="feedback invalid-feedback">Por favor, proporciona un correo válido.</div>
+          <div class="feedback empty-feedback">
+            Por favor, proporciona tu correo.
+          </div>
+          <div class="feedback invalid-feedback">
+            Por favor, proporciona un correo válido.
+          </div>
         </div>
       </div>
 
       <div class="mt-m form-group">
-        <label for="message" class="block text-text-muted font-medium mb-2">Mensaje *</label>
+        <label for="message" class="block text-text-muted font-medium mb-2"
+          >Mensaje *</label
+        >
         <textarea
           id="message"
           name="message"
@@ -75,17 +90,26 @@ const submitButtonClasses =
           maxlength="1000"
           required
           rows="5"
-          class:list={[inputClasses, "h-32 resize-y min-h-[8rem]"]}
-          placeholder="Escribe tu mensaje aquí... (mínimo 10 caracteres)"></textarea>
-        <div class="feedback empty-feedback">Por favor, ingresa tu mensaje.</div>
-        <div class="feedback invalid-feedback">El mensaje debe tener al menos 10 caracteres.</div>
+          class:list={[inputClasses, 'h-32 resize-y min-h-[8rem]']}
+          placeholder="Escribe tu mensaje aquí... (mínimo 10 caracteres)"
+        ></textarea>
+        <div class="feedback empty-feedback">
+          Por favor, ingresa tu mensaje.
+        </div>
+        <div class="feedback invalid-feedback">
+          El mensaje debe tener al menos 10 caracteres.
+        </div>
         <div class="text-sm text-text-muted mt-1">
           <span id="char-count">0</span>/1000 caracteres
         </div>
       </div>
 
       <div class="mt-l">
-        <button type="submit" class:list={[submitButtonClasses]} id="submit-btn">
+        <button
+          type="submit"
+          class:list={[submitButtonClasses]}
+          id="submit-btn"
+        >
           <span class="btn-text">Enviar mensaje</span>
           <span class="btn-loading hidden">
             <svg
@@ -112,7 +136,13 @@ const submitButtonClasses =
         </button>
       </div>
 
-      <div id="form-result" class="mt-4 text-center hidden" role="status" aria-live="polite"></div>
+      <div
+        id="form-result"
+        class="mt-4 text-center hidden"
+        role="status"
+        aria-live="polite"
+      >
+      </div>
     </form>
   </article>
 </Section>
@@ -142,13 +172,21 @@ const submitButtonClasses =
   }
 
   /* Show appropriate feedback based on validation state */
-  .was-validated .form-group:has(input:invalid:not(:placeholder-shown)) .invalid-feedback,
-  .was-validated .form-group:has(textarea:invalid:not(:placeholder-shown)) .invalid-feedback {
+  .was-validated
+    .form-group:has(input:invalid:not(:placeholder-shown))
+    .invalid-feedback,
+  .was-validated
+    .form-group:has(textarea:invalid:not(:placeholder-shown))
+    .invalid-feedback {
     display: block;
   }
 
-  .was-validated .form-group:has(input:invalid:placeholder-shown) .empty-feedback,
-  .was-validated .form-group:has(textarea:invalid:placeholder-shown) .empty-feedback {
+  .was-validated
+    .form-group:has(input:invalid:placeholder-shown)
+    .empty-feedback,
+  .was-validated
+    .form-group:has(textarea:invalid:placeholder-shown)
+    .empty-feedback {
     display: block;
   }
 
@@ -194,18 +232,22 @@ const submitButtonClasses =
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("contact-form") as HTMLFormElement;
-    const result = document.getElementById("form-result");
-    const submitButton = document.getElementById("submit-btn") as HTMLButtonElement;
-    const messageField = document.getElementById("message") as HTMLTextAreaElement;
-    const charCount = document.getElementById("char-count");
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const result = document.getElementById('form-result');
+    const submitButton = document.getElementById(
+      'submit-btn'
+    ) as HTMLButtonElement;
+    const messageField = document.getElementById(
+      'message'
+    ) as HTMLTextAreaElement;
+    const charCount = document.getElementById('char-count');
 
     const authHeader = form?.dataset.auth;
     const webhookUrl = form?.dataset.webhook;
 
     if (!form || !result || !submitButton || !authHeader || !webhookUrl) {
-      console.error("Missing required form elements or configuration");
+      console.error('Missing required form elements or configuration');
       return;
     }
 
@@ -216,61 +258,67 @@ const submitButtonClasses =
         charCount.textContent = count.toString();
 
         if (count > 1000) {
-          charCount.style.color = "rgb(239 68 68)"; // red-500
+          charCount.style.color = 'rgb(239 68 68)'; // red-500
         } else if (count > 800) {
-          charCount.style.color = "rgb(245 158 11)"; // amber-500
+          charCount.style.color = 'rgb(245 158 11)'; // amber-500
         } else {
-          charCount.style.color = "rgb(107 114 128)"; // gray-500
+          charCount.style.color = 'rgb(107 114 128)'; // gray-500
         }
       };
 
-      messageField.addEventListener("input", updateCharCount);
+      messageField.addEventListener('input', updateCharCount);
       updateCharCount(); // Initial count
     }
 
     // Custom validation messages
-    const setCustomValidity = (element: HTMLInputElement | HTMLTextAreaElement) => {
+    const setCustomValidity = (
+      element: HTMLInputElement | HTMLTextAreaElement
+    ) => {
       if (element.validity.valueMissing) {
         element.setCustomValidity(`Este campo es obligatorio`);
       } else if (element.validity.tooShort) {
         element.setCustomValidity(`Mínimo ${element.minLength} caracteres`);
       } else if (element.validity.tooLong) {
         element.setCustomValidity(`Máximo ${element.maxLength} caracteres`);
-      } else if (element.validity.typeMismatch && element.type === "email") {
-        element.setCustomValidity("Por favor, introduce un email válido");
+      } else if (element.validity.typeMismatch && element.type === 'email') {
+        element.setCustomValidity('Por favor, introduce un email válido');
       } else {
-        element.setCustomValidity("");
+        element.setCustomValidity('');
       }
     };
 
     // Add validation listeners
-    form.querySelectorAll("input, textarea").forEach((element) => {
+    form.querySelectorAll('input, textarea').forEach(element => {
       const inputElement = element as HTMLInputElement | HTMLTextAreaElement;
-      inputElement.addEventListener("invalid", () => setCustomValidity(inputElement));
-      inputElement.addEventListener("input", () => setCustomValidity(inputElement));
+      inputElement.addEventListener('invalid', () =>
+        setCustomValidity(inputElement)
+      );
+      inputElement.addEventListener('input', () =>
+        setCustomValidity(inputElement)
+      );
     });
 
     // Form submission handler
-    form.addEventListener("submit", async (e) => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
 
       // Add validation class
-      form.classList.add("was-validated");
+      form.classList.add('was-validated');
 
       // Check form validity
       if (!form.checkValidity()) {
-        const firstInvalid = form.querySelector(":invalid") as HTMLElement;
+        const firstInvalid = form.querySelector(':invalid') as HTMLElement;
         firstInvalid?.focus();
         return;
       }
 
       // Prepare UI for submission
-      submitButton.classList.add("loading");
+      submitButton.classList.add('loading');
       submitButton.disabled = true;
-      result.className = "mt-4 text-center";
-      result.style.display = "block";
-      result.classList.remove("hidden", "success", "error");
-      result.textContent = "Enviando mensaje...";
+      result.className = 'mt-4 text-center';
+      result.style.display = 'block';
+      result.classList.remove('hidden', 'success', 'error');
+      result.textContent = 'Enviando mensaje...';
 
       try {
         // Prepare form data
@@ -279,116 +327,123 @@ const submitButtonClasses =
 
         // Convert FormData to object, excluding botcheck
         for (const [key, value] of formData.entries()) {
-          if (key !== "botcheck") {
+          if (key !== 'botcheck') {
             data[key] = value;
           }
         }
 
         // Check for bot (honeypot should be empty)
-        const botCheck = formData.get("botcheck");
+        const botCheck = formData.get('botcheck');
         if (botCheck) {
-          throw new Error("Spam detected");
+          throw new Error('Spam detected');
         }
 
         // Add timestamp and user agent for n8n processing
         data.timestamp = new Date().toISOString();
         data.userAgent = navigator.userAgent;
-        data.source = "portfolio-contact-form";
+        data.source = 'portfolio-contact-form';
 
-        console.log("Sending data to webhook:", data);
+        console.log('Sending data to webhook:', data);
 
         // Log the request details for debugging
-        console.log("Webhook URL:", webhookUrl);
-        console.log("Auth Header:", authHeader ? "Present" : "Missing");
-        console.log("Request headers:", {
-          "Content-Type": "application/json",
-          "X-ContactForm-Secret": authHeader ? "***" : "Missing",
-          Accept: "application/json",
+        console.log('Webhook URL:', webhookUrl);
+        console.log('Auth Header:', authHeader ? 'Present' : 'Missing');
+        console.log('Request headers:', {
+          'Content-Type': 'application/json',
+          'X-ContactForm-Secret': authHeader ? '***' : 'Missing',
+          Accept: 'application/json',
         });
 
         // Send to n8n webhook
         const response = await fetch(webhookUrl, {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
-            "X-ContactForm-Secret": authHeader,
-            Accept: "application/json",
+            'Content-Type': 'application/json',
+            'X-ContactForm-Secret': authHeader,
+            Accept: 'application/json',
           },
           body: JSON.stringify(data),
         });
 
-        console.log("Response status:", response.status);
-        console.log("Response headers:", Object.fromEntries(response.headers.entries()));
+        console.log('Response status:', response.status);
+        console.log(
+          'Response headers:',
+          Object.fromEntries(response.headers.entries())
+        );
 
         // Log response body for debugging
         const responseText = await response.clone().text();
-        console.log("Response body:", responseText);
+        console.log('Response body:', responseText);
 
         if (response.ok) {
           // Success
-          result.textContent = "¡Mensaje enviado correctamente! Te responderé pronto.";
-          result.classList.add("success");
+          result.textContent =
+            '¡Mensaje enviado correctamente! Te responderé pronto.';
+          result.classList.add('success');
 
           // Reset form
           form.reset();
-          form.classList.remove("was-validated");
+          form.classList.remove('was-validated');
 
           // Reset character counter
           if (charCount) {
-            charCount.textContent = "0";
-            charCount.style.color = "rgb(107 114 128)";
+            charCount.textContent = '0';
+            charCount.style.color = 'rgb(107 114 128)';
           }
 
           // Hide result after 8 seconds
           setTimeout(() => {
-            result.classList.add("hidden");
+            result.classList.add('hidden');
           }, 8000);
         } else {
           // Handle different error status codes
-          let errorMessage = "Error al enviar el mensaje. ";
+          let errorMessage = 'Error al enviar el mensaje. ';
 
           try {
             const errorData = await response.json();
             errorMessage +=
-              errorData.message || errorData.error || `Código de error: ${response.status}`;
+              errorData.message ||
+              errorData.error ||
+              `Código de error: ${response.status}`;
           } catch {
             if (response.status === 401) {
-              errorMessage += "Error de autenticación.";
+              errorMessage += 'Error de autenticación.';
             } else if (response.status === 403) {
-              errorMessage += "Acceso denegado.";
+              errorMessage += 'Acceso denegado.';
             } else if (response.status === 429) {
-              errorMessage += "Demasiadas solicitudes. Inténtalo más tarde.";
+              errorMessage += 'Demasiadas solicitudes. Inténtalo más tarde.';
             } else if (response.status >= 500) {
-              errorMessage += "Error del servidor. Inténtalo más tarde.";
+              errorMessage += 'Error del servidor. Inténtalo más tarde.';
             } else {
               errorMessage += `Error ${response.status}.`;
             }
           }
 
           result.textContent = errorMessage;
-          result.classList.add("error");
+          result.classList.add('error');
         }
       } catch (error) {
-        console.error("Error sending form:", error);
+        console.error('Error sending form:', error);
 
-        let errorMessage = "Error de conexión. ";
-        if (error instanceof TypeError && error.message.includes("fetch")) {
-          errorMessage += "Verifica tu conexión a internet e inténtalo de nuevo.";
+        let errorMessage = 'Error de conexión. ';
+        if (error instanceof TypeError && error.message.includes('fetch')) {
+          errorMessage +=
+            'Verifica tu conexión a internet e inténtalo de nuevo.';
         } else {
-          errorMessage += "Inténtalo de nuevo más tarde.";
+          errorMessage += 'Inténtalo de nuevo más tarde.';
         }
 
         result.textContent = errorMessage;
-        result.classList.add("error");
+        result.classList.add('error');
       } finally {
         // Reset button state
-        submitButton.classList.remove("loading");
+        submitButton.classList.remove('loading');
         submitButton.disabled = false;
 
         // Auto-hide result after 10 seconds for errors
-        if (result.classList.contains("error")) {
+        if (result.classList.contains('error')) {
           setTimeout(() => {
-            result.classList.add("hidden");
+            result.classList.add('hidden');
           }, 10000);
         }
       }

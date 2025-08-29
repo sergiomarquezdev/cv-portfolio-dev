@@ -1,6 +1,6 @@
 /**
  * TypeScript type definitions for component props
- * 
+ *
  * @description
  * Centralized type definitions ensure type safety and consistency across all components.
  * These interfaces define the contract for component props and provide IntelliSense support.

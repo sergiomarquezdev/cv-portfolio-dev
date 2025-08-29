@@ -1,5 +1,5 @@
 ---
-import type { ImageProps } from "../types/components";
+import type { ImageProps } from '../types/components';
 
 export interface Props extends ImageProps {}
 
@@ -27,7 +27,7 @@ const decodingStrategy = priority ? 'sync' : decoding;
   alt={alt}
   width={width}
   height={height}
-  class={className}
+  class:list={className}
   loading={loadingStrategy}
   decoding={decodingStrategy}
   sizes={sizes}

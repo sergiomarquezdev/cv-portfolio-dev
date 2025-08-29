@@ -2,14 +2,14 @@ module.exports = {
   printWidth: 100,
   tabWidth: 2,
   singleQuote: false,
-  trailingComma: "es5",
+  trailingComma: 'es5',
   semi: true,
-  plugins: ["prettier-plugin-astro"],
+  plugins: ['prettier-plugin-astro'],
   overrides: [
     {
-      files: "*.astro",
+      files: '*.astro',
       options: {
-        parser: "astro",
+        parser: 'astro',
       },
     },
   ],

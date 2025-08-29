@@ -1,23 +1,23 @@
-import { defineConfig } from "astro/config";
-import partytown from "@astrojs/partytown";
-import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
+import { defineConfig } from 'astro/config';
+import partytown from '@astrojs/partytown';
+import sitemap from '@astrojs/sitemap';
+import tailwind from '@astrojs/tailwind';
 
-import preact from "@astrojs/preact";
+import preact from '@astrojs/preact';
 
 export default defineConfig({
-  site: "https://cv.sergiomarquez.dev/",
-  output: "static",
-  trailingSlash: "never",
+  site: 'https://cv.sergiomarquez.dev/',
+  output: 'static',
+  trailingSlash: 'never',
   compressHTML: true,
   build: {
-    inlineStylesheets: "auto",
-    assets: "_assets"
+    inlineStylesheets: 'auto',
+    assets: '_assets',
   },
 
   server: {
     port: 4321,
-    host: true
+    host: true,
   },
 
   integrations: [
@@ -28,7 +28,7 @@ export default defineConfig({
     }),
     partytown({
       config: {
-        forward: ["dataLayer.push"],
+        forward: ['dataLayer.push'],
         debug: false,
       },
     }),
@@ -37,24 +37,24 @@ export default defineConfig({
       nesting: true,
     }),
     preact({
-      compat: true
+      compat: true,
     }),
   ],
 
   image: {
     service: {
-      entrypoint: "astro/assets/services/sharp",
+      entrypoint: 'astro/assets/services/sharp',
     },
   },
 
   prefetch: {
     prefetchAll: false,
-    defaultStrategy: "hover",
+    defaultStrategy: 'hover',
   },
 
   vite: {
     build: {
-      cssMinify: "lightningcss",
+      cssMinify: 'lightningcss',
       rollupOptions: {
         output: {
           manualChunks: {
@@ -86,7 +86,7 @@ export default defineConfig({
         // Ensure consistent path resolution
         '@': new URL('./src', import.meta.url).pathname,
         '@cv': new URL('./public/cv.json', import.meta.url).pathname,
-      }
+      },
     },
     css: {
       transformer: 'lightningcss',

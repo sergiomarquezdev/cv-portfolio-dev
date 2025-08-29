@@ -1,6 +1,6 @@
 ---
-import Section from "../Section.astro";
-import { highlightedSkills, databasesSkills, otherSkills } from "@cv";
+import Section from '../Section.astro';
+import { highlightedSkills, databasesSkills, otherSkills } from '@cv';
 import {
   Java as Java,
   Spring as Spring,
@@ -18,7 +18,7 @@ import {
   LLMOps as LLMOps,
   N8n as N8n,
   GCP as GCP,
-} from "@/icons";
+} from '@/icons';
 
 const SKILLS_ICONS = {
   Java,
@@ -40,24 +40,27 @@ const SKILLS_ICONS = {
 } as const;
 
 const skillItemClasses =
-  "skill-item flex items-center gap-2 rounded-md border border-border bg-background-surface px-3 py-1 text-base font-semibold text-text-muted transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:bg-primary/10 hover:border-primary/40 hover:text-primary";
+  'skill-item flex items-center gap-2 rounded-md border border-border bg-background-surface px-3 py-1 text-base font-semibold text-text-muted transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:bg-primary/10 hover:border-primary/40 hover:text-primary';
 
 const skillCategories = [
-  { title: "Principales tecnologías", skills: highlightedSkills },
-  { title: "Otras tecnologías", skills: otherSkills },
-  { title: "Bases de datos", skills: databasesSkills },
+  { title: 'Principales tecnologías', skills: highlightedSkills },
+  { title: 'Otras tecnologías', skills: otherSkills },
+  { title: 'Bases de datos', skills: databasesSkills },
 ];
 ---
 
 <Section title="Habilidades" id="habilidades">
   <div class="space-y-l" id="skills-container">
     {
-      skillCategories.map((category) => (
+      skillCategories.map(category => (
         <div class="skill-category">
-          <h3 class="mb-s text-lg font-semibold text-text-muted">{category.title}</h3>
+          <h3 class="mb-s text-lg font-semibold text-text-muted">
+            {category.title}
+          </h3>
           <ul class="flex flex-wrap gap-2">
             {category.skills.map(({ name, icon }) => {
-              const IconComponent = SKILLS_ICONS[icon as keyof typeof SKILLS_ICONS];
+              const IconComponent =
+                SKILLS_ICONS[icon as keyof typeof SKILLS_ICONS];
               return (
                 <li class:list={[skillItemClasses]}>
                   {IconComponent && <IconComponent class="h-5 w-5" />}

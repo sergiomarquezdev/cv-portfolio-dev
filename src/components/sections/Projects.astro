@@ -1,26 +1,30 @@
 ---
-import Section from "../Section.astro";
-import { projects } from "@cv";
-import { GitHubIcon, WebsiteIcon } from "@/icons";
+import Section from '../Section.astro';
+import { projects } from '@cv';
+import { GitHubIcon, WebsiteIcon } from '@/icons';
 
 const { title } = Astro.props;
 ---
 
-<Section title={title || "Proyectos"} id="proyectos">
+<Section title={title || 'Proyectos'} id="proyectos">
   <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
     {
-      projects.map((project) => (
+      projects.map(project => (
         <article class="bg-background-surface rounded-lg border border-border shadow-md overflow-hidden">
           <div class="p-6 space-y-4">
             <header>
               <h3 class="text-h4 font-bold text-text">{project.name}</h3>
-              <p class="text-body-reg text-text-muted mt-2 line-clamp-3">{project.description}</p>
+              <p class="text-body-reg text-text-muted mt-2 line-clamp-3">
+                {project.description}
+              </p>
             </header>
 
             <div>
-              <h4 class="text-sm font-semibold text-text-muted uppercase tracking-wide">Stack</h4>
+              <h4 class="text-sm font-semibold text-text-muted uppercase tracking-wide">
+                Stack
+              </h4>
               <div class="flex flex-wrap gap-2 mt-2">
-                {project.highlights.map((tech) => (
+                {project.highlights.map(tech => (
                   <span class="tech-pill">{tech}</span>
                 ))}
               </div>
@@ -40,7 +44,11 @@ const { title } = Astro.props;
               )}
               {project.github && (
                 <a
-                  href={Array.isArray(project.github) ? project.github[0] : project.github}
+                  href={
+                    Array.isArray(project.github)
+                      ? project.github[0]
+                      : project.github
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   class="inline-flex items-center gap-2 text-sm font-medium text-text hover:text-primary"

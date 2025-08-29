@@ -1,14 +1,14 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import About from "@/components/sections/About.astro";
-import Experience from "@/components/sections/Experience.astro";
-import Hero from "@/components/sections/Hero.astro";
-import Projects from "@/components/sections/Projects.astro";
-import Skills from "@/components/sections/Skills.astro";
-import Training from "@/components/sections/Training.astro";
-import Contact from "@/components/sections/Contact.astro";
+import Layout from '@/layouts/Layout.astro';
+import About from '@/components/sections/About.astro';
+import Experience from '@/components/sections/Experience.astro';
+import Hero from '@/components/sections/Hero.astro';
+import Projects from '@/components/sections/Projects.astro';
+import Skills from '@/components/sections/Skills.astro';
+import Training from '@/components/sections/Training.astro';
+import Contact from '@/components/sections/Contact.astro';
 
-import { basics } from "@cv";
+import { basics } from '@cv';
 const { name } = basics;
 ---
 
@@ -41,7 +41,9 @@ const { name } = basics;
     </section>
   </main>
 
-  <footer class="bg-background-surface pt-8 pb-4 text-center text-text-muted text-sm">
+  <footer
+    class="bg-background-surface pt-8 pb-4 text-center text-text-muted text-sm"
+  >
     <div class="max-w-4xl mx-auto px-6">
       <p>&copy; {new Date().getFullYear()} {name}</p>
     </div>

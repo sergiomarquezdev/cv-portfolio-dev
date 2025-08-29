@@ -1,19 +1,19 @@
 ---
-import { basics } from "@cv";
-import { MenuIcon } from "../icons";
-import ThemeToggle from "./ThemeToggle.astro";
+import { basics } from '@cv';
+import { MenuIcon } from '../icons';
+import ThemeToggle from './ThemeToggle.astro';
 const { name } = basics;
 
 const navLinks = [
-  { href: "#sobre-mi", label: "Sobre mí" },
-  { href: "#experiencia", label: "Experiencia" },
-  { href: "#proyectos", label: "Proyectos" },
-  { href: "#habilidades", label: "Habilidades" },
-  { href: "#contacto", label: "Contacto" },
+  { href: '#sobre-mi', label: 'Sobre mí' },
+  { href: '#experiencia', label: 'Experiencia' },
+  { href: '#proyectos', label: 'Proyectos' },
+  { href: '#habilidades', label: 'Habilidades' },
+  { href: '#contacto', label: 'Contacto' },
 ];
 
 const elegantLinkClasses =
-  "relative after:absolute after:bg-gradient-to-r after:from-primary after:to-secondary-blue after:h-0.5 after:w-0 after:left-1/2 after:-bottom-1 after:transform after:-translate-x-1/2 after:transition-all after:duration-300 hover:after:w-full focus:after:w-full";
+  'relative after:absolute after:bg-gradient-to-r after:from-primary after:to-secondary-blue after:h-0.5 after:w-0 after:left-1/2 after:-bottom-1 after:transform after:-translate-x-1/2 after:transition-all after:duration-300 hover:after:w-full focus:after:w-full';
 ---
 
 <header
@@ -24,7 +24,11 @@ const elegantLinkClasses =
     id="reading-progress-container"
     class="absolute top-full left-0 w-full h-0.5 bg-background-surface"
   >
-    <div id="reading-progress" class="h-full bg-primary w-0 transition-all duration-100"></div>
+    <div
+      id="reading-progress"
+      class="h-full bg-primary w-0 transition-all duration-100"
+    >
+    </div>
   </div>
 
   <div class="container mx-auto px-4">
@@ -32,9 +36,14 @@ const elegantLinkClasses =
       <a
         href="#"
         id="logo-link"
-        class:list={["text-text font-bold text-xl flex items-center", elegantLinkClasses]}
+        class:list={[
+          'text-text font-bold text-xl flex items-center',
+          elegantLinkClasses,
+        ]}
       >
-        <span class="text-primary">&lt;</span>{name}<span class="text-primary">/&gt;</span>
+        <span class="text-primary">&lt;</span>{name}<span class="text-primary"
+          >/&gt;</span
+        >
       </a>
 
       <ul class="hidden lg:flex items-center space-x-8">
@@ -44,7 +53,7 @@ const elegantLinkClasses =
               <a
                 href={href}
                 class:list={[
-                  "nav-link text-text-muted hover:text-secondary-blue transition-colors duration-300",
+                  'nav-link text-text-muted hover:text-secondary-blue transition-colors duration-300',
                   elegantLinkClasses,
                 ]}
               >
@@ -97,47 +106,50 @@ const elegantLinkClasses =
 </header>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const mobileMenuButton = document.getElementById("mobile-menu-button") as HTMLButtonElement;
-    const mobileMenu = document.getElementById("mobile-menu") as HTMLElement;
-    const header = document.getElementById("main-header") as HTMLElement;
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuButton = document.getElementById(
+      'mobile-menu-button'
+    ) as HTMLButtonElement;
+    const mobileMenu = document.getElementById('mobile-menu') as HTMLElement;
+    const header = document.getElementById('main-header') as HTMLElement;
 
     const toggleMenu = (forceClose = false) => {
-      const isHidden = mobileMenu.classList.contains("hidden");
+      const isHidden = mobileMenu.classList.contains('hidden');
       if (forceClose || !isHidden) {
-        mobileMenu.style.opacity = "0";
-        mobileMenu.style.transform = "translateY(-10px)";
+        mobileMenu.style.opacity = '0';
+        mobileMenu.style.transform = 'translateY(-10px)';
         setTimeout(() => {
-          mobileMenu.classList.add("hidden");
-          mobileMenu.style.transition = "";
+          mobileMenu.classList.add('hidden');
+          mobileMenu.style.transition = '';
         }, 200);
-        mobileMenuButton.setAttribute("aria-expanded", "false");
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
       } else {
-        mobileMenu.classList.remove("hidden");
-        mobileMenu.style.opacity = "0";
-        mobileMenu.style.transform = "translateY(-10px)";
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.style.opacity = '0';
+        mobileMenu.style.transform = 'translateY(-10px)';
         requestAnimationFrame(() => {
-          mobileMenu.style.transition = "opacity 0.2s ease, transform 0.2s ease";
-          mobileMenu.style.opacity = "1";
-          mobileMenu.style.transform = "translateY(0)";
+          mobileMenu.style.transition =
+            'opacity 0.2s ease, transform 0.2s ease';
+          mobileMenu.style.opacity = '1';
+          mobileMenu.style.transform = 'translateY(0)';
         });
-        mobileMenuButton.setAttribute("aria-expanded", "true");
+        mobileMenuButton.setAttribute('aria-expanded', 'true');
       }
     };
 
-    mobileMenuButton.addEventListener("click", () => toggleMenu());
-    document.querySelectorAll(".nav-link, #logo-link").forEach((link) => {
-      link.addEventListener("click", () => toggleMenu(true));
+    mobileMenuButton.addEventListener('click', () => toggleMenu());
+    document.querySelectorAll('.nav-link, #logo-link').forEach(link => {
+      link.addEventListener('click', () => toggleMenu(true));
     });
 
-    const navLinks = document.querySelectorAll(".nav-link");
-    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section[id]');
 
     const updateActiveSection = () => {
       const scrollPosition = window.scrollY + header.offsetHeight + 100;
       let activeSectionFound = false;
 
-      sections.forEach((section) => {
+      sections.forEach(section => {
         const sectionEl = section as HTMLElement;
         const link = document.querySelector(`.nav-link[href="#${section.id}"]`);
         if (!link) return;
@@ -146,27 +158,27 @@ const elegantLinkClasses =
           sectionEl.offsetTop <= scrollPosition &&
           sectionEl.offsetTop + sectionEl.offsetHeight > scrollPosition
         ) {
-          link.classList.add("text-primary");
-          link.classList.remove("text-text-muted");
+          link.classList.add('text-primary');
+          link.classList.remove('text-text-muted');
           activeSectionFound = true;
         } else {
-          link.classList.remove("text-primary");
-          link.classList.add("text-text-muted");
+          link.classList.remove('text-primary');
+          link.classList.add('text-text-muted');
         }
       });
       // If no section is active (e.g., at the top or bottom of the page), clear all active states
       if (!activeSectionFound) {
-        navLinks.forEach((link) => {
-          link.classList.remove("text-primary");
-          link.classList.add("text-text-muted");
+        navLinks.forEach(link => {
+          link.classList.remove('text-primary');
+          link.classList.add('text-text-muted');
         });
       }
     };
 
-    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
     updateActiveSection();
 
-    const progressBar = document.getElementById("reading-progress");
+    const progressBar = document.getElementById('reading-progress');
     if (progressBar) {
       const updateProgressBar = () => {
         const scrollPosition = window.scrollY;
@@ -177,8 +189,8 @@ const elegantLinkClasses =
         }
       };
 
-      window.addEventListener("scroll", updateProgressBar, { passive: true });
-      window.addEventListener("resize", updateProgressBar, { passive: true });
+      window.addEventListener('scroll', updateProgressBar, { passive: true });
+      window.addEventListener('resize', updateProgressBar, { passive: true });
       updateProgressBar();
     }
   });

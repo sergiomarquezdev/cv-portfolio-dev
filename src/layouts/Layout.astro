@@ -1,7 +1,7 @@
 ---
 /**
  * Main Layout Component
- * 
+ *
  * @description
  * Primary layout component that wraps all pages with essential structure including:
  * - HTML document structure with proper meta tags
@@ -15,10 +15,10 @@
 // Previous synchronous imports removed for better Core Web Vitals
 // Font loading is now handled in the HTML head with preload hints
 
-import globalStyles from "../styles/global.css?inline";
-import ScrollToTop from "@/components/ScrollToTop.astro";
-import Header from "@/components/Header.astro";
-import cvData from "@cv";
+import globalStyles from '../styles/global.css?inline';
+import ScrollToTop from '@/components/ScrollToTop.astro';
+import Header from '@/components/Header.astro';
+import cvData from '@cv';
 
 /**
  * Layout component props interface
@@ -35,65 +35,82 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 // Default page metadata with SEO-optimized content
 const {
-  title = "Sergio Márquez | Backend & IA/ML Engineer",
-  description = "Portfolio de Sergio Márquez Pérez, Ingeniero Backend e IA/ML con experiencia en Java Spring, Python FastAPI, Docker, Kubernetes y Google Cloud. Especialista en automatización, LLMOps y desarrollo de APIs escalables.",
+  title = 'Sergio Márquez | Backend & IA/ML Engineer',
+  description = 'Portfolio de Sergio Márquez Pérez, Ingeniero Backend e IA/ML con experiencia en Java Spring, Python FastAPI, Docker, Kubernetes y Google Cloud. Especialista en automatización, LLMOps y desarrollo de APIs escalables.',
 } = Astro.props;
 
 // Extract CV data for structured data generation
-const { basics, work, education, highlightedSkills, otherSkills, databasesSkills } = cvData;
+const {
+  basics,
+  work,
+  education,
+  highlightedSkills,
+  otherSkills,
+  databasesSkills,
+} = cvData;
 const siteUrl = Astro.site ? Astro.site.toString().slice(0, -1) : basics.url;
-const fullNameForSchema = basics.name.includes("Pérez") ? basics.name : basics.name + " Pérez";
+const fullNameForSchema = basics.name.includes('Pérez')
+  ? basics.name
+  : basics.name + ' Pérez';
 
 /**
  * Generate Person Schema.org structured data for SEO
  * Provides rich snippets for search engines and social media
  */
 const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
+  '@context': 'https://schema.org',
+  '@type': 'Person',
   name: fullNameForSchema,
   url: siteUrl,
   image: `${siteUrl}${basics.image}`,
-  jobTitle: "Ingeniero Backend IA/ML",
-  description: "Ingeniero Backend e IA/ML especializado en Java, Spring, Python, FastAPI, Docker, Kubernetes y Google Cloud",
+  jobTitle: 'Ingeniero Backend IA/ML',
+  description:
+    'Ingeniero Backend e IA/ML especializado en Java, Spring, Python, FastAPI, Docker, Kubernetes y Google Cloud',
   // Safe access to work data with null checking for TypeScript strict mode
   worksFor:
     work.length > 0 && work[0]
       ? {
-          "@type": "Organization",
+          '@type': 'Organization',
           name: work[0].company,
         }
       : undefined,
   // Educational background for professional context
-  alumniOf: education.map((edu) => ({
-    "@type": "EducationalOrganization",
+  alumniOf: education.map(edu => ({
+    '@type': 'EducationalOrganization',
     name: edu.institution,
   })),
   // Social media and professional profiles
-  sameAs: basics.profiles.map((profile) => profile.url),
+  sameAs: basics.profiles.map(profile => profile.url),
   // Technical skills and expertise areas
   knowsAbout: [
-    ...highlightedSkills.map((skill) => skill.name),
-    ...otherSkills.map((skill) => skill.name),
-    ...databasesSkills.map((skill) => skill.name),
+    ...highlightedSkills.map(skill => skill.name),
+    ...otherSkills.map(skill => skill.name),
+    ...databasesSkills.map(skill => skill.name),
   ].filter((value, index, self) => self.indexOf(value) === index),
   hasOccupation: {
-    "@type": "Occupation",
-    name: "Backend & IA/ML Engineer",
+    '@type': 'Occupation',
+    name: 'Backend & IA/ML Engineer',
     occupationLocation: {
-      "@type": "City",
-      name: `${basics.location.city}, ${basics.location.region}`
+      '@type': 'City',
+      name: `${basics.location.city}, ${basics.location.region}`,
     },
     skills: [
-      "Java", "Spring Framework", "Python", "FastAPI", "Docker",
-      "Kubernetes", "Google Cloud", "Machine Learning", "AI/ML"
-    ]
+      'Java',
+      'Spring Framework',
+      'Python',
+      'FastAPI',
+      'Docker',
+      'Kubernetes',
+      'Google Cloud',
+      'Machine Learning',
+      'AI/ML',
+    ],
   },
   contactPoint: {
-    "@type": "ContactPoint",
+    '@type': 'ContactPoint',
     email: basics.email,
-    contactType: "professional"
-  }
+    contactType: 'professional',
+  },
 };
 ---
 
@@ -101,7 +118,10 @@ const personSchema = {
 <html lang="es" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
     <!-- Preload Critical Fonts for LCP Optimization -->
@@ -127,12 +147,29 @@ const personSchema = {
     <style>
       /* System font fallback until Inter loads */
       body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          Roboto,
+          'Helvetica Neue',
+          Arial,
+          sans-serif;
       }
 
       /* Prevent layout shift during font load */
       .font-sans {
-        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        font-family:
+          'Inter',
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          Roboto,
+          'Helvetica Neue',
+          Arial,
+          sans-serif;
       }
 
       /* Optimize rendering performance */
@@ -140,13 +177,23 @@ const personSchema = {
         text-rendering: optimizeSpeed;
       }
 
-      h1, h2, h3, h4, h5, h6 {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
         text-rendering: optimizeLegibility;
       }
 
       /* Prevent invisible text during font swap period */
       .text-gradient-primary {
-        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 50%, #1e40af 100%);
+        background: linear-gradient(
+          135deg,
+          #3b82f6 0%,
+          #1d4ed8 50%,
+          #1e40af 100%
+        );
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -178,7 +225,10 @@ const personSchema = {
 
     <!-- Resource Hints for Images -->
     <link rel="prefetch" href="/img/sergio_marquez_perez_ia_profile_pic.png" />
-    <link rel="prefetch" href="/img/sergio_marquez_perez_ia_profile_og_image.png" />
+    <link
+      rel="prefetch"
+      href="/img/sergio_marquez_perez_ia_profile_og_image.png"
+    />
 
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalURL} />
@@ -207,11 +257,17 @@ const personSchema = {
     <meta property="og:site_name" content="Portfolio de Sergio Márquez" />
     <meta
       property="og:image"
-      content={new URL("/img/sergio_marquez_perez_ia_profile_og_image.png", Astro.url)}
+      content={new URL(
+        '/img/sergio_marquez_perez_ia_profile_og_image.png',
+        Astro.url
+      )}
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Sergio Márquez - Backend & IA/ML Engineer" />
+    <meta
+      property="og:image:alt"
+      content="Sergio Márquez - Backend & IA/ML Engineer"
+    />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:locale:alternate" content="en_US" />
 
@@ -223,11 +279,21 @@ const personSchema = {
     <meta property="twitter:description" content={description} />
     <meta
       property="twitter:image"
-      content={new URL("/img/sergio_marquez_perez_ia_profile_og_image.png", Astro.url)}
+      content={new URL(
+        '/img/sergio_marquez_perez_ia_profile_og_image.png',
+        Astro.url
+      )}
     />
-    <meta property="twitter:image:alt" content="Sergio Márquez - Backend & IA/ML Engineer" />
+    <meta
+      property="twitter:image:alt"
+      content="Sergio Márquez - Backend & IA/ML Engineer"
+    />
 
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(personSchema)}
+    />
   </head>
   <body class="font-sans">
     <!-- Skip to main content for keyboard navigation -->
@@ -247,8 +313,8 @@ const personSchema = {
     <!-- Unified JavaScript System -->
     <script is:inline>
       // Unified Observer System for Portfolio
-      (function() {
-        let observersMap = new Map();
+      (function () {
+        const observersMap = new Map();
         let progressBar = null;
 
         function initializeObservers() {
@@ -256,54 +322,61 @@ const personSchema = {
           const observerConfigs = [
             {
               selector: '.fade-in-section',
-              callback: function(element) {
+              callback: function (element) {
                 element.classList.add('in-view');
               },
               options: {
                 rootMargin: '0px 0px -100px 0px',
-                threshold: 0.1
-              }
+                threshold: 0.1,
+              },
             },
             {
               selector: '.skill-category',
-              callback: function(element) {
+              callback: function (element) {
                 const skillItems = element.querySelectorAll('.skill-item');
-                skillItems.forEach(function(item, index) {
-                  item.style.setProperty('--animation-delay', (index * 50) + 'ms');
+                skillItems.forEach(function (item, index) {
+                  item.style.setProperty(
+                    '--animation-delay',
+                    index * 50 + 'ms'
+                  );
                   item.classList.add('animate-fade-in-up');
                 });
               },
-              options: { threshold: 0.1 }
+              options: { threshold: 0.1 },
             },
             {
               selector: '.paragraph-container',
-              callback: function(element) {
-                const index = Array.from(document.querySelectorAll('.paragraph-container')).indexOf(element);
-                element.style.setProperty('--animation-delay', (index * 200) + 'ms');
+              callback: function (element) {
+                const index = Array.from(
+                  document.querySelectorAll('.paragraph-container')
+                ).indexOf(element);
+                element.style.setProperty(
+                  '--animation-delay',
+                  index * 200 + 'ms'
+                );
                 element.classList.add('animate-fade-in-up');
               },
-              options: { threshold: 0.1 }
-            }
+              options: { threshold: 0.1 },
+            },
           ];
 
           // Crear observers optimizados
-          observerConfigs.forEach(function(config) {
-            const observer = new IntersectionObserver(
-              function(entries) {
-                entries.forEach(function(entry) {
-                  if (entry.isIntersecting) {
-                    config.callback(entry.target);
-                    observer.unobserve(entry.target);
-                  }
-                });
-              },
-              config.options
-            );
+          observerConfigs.forEach(function (config) {
+            const observer = new IntersectionObserver(function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  config.callback(entry.target);
+                  observer.unobserve(entry.target);
+                }
+              });
+            }, config.options);
 
             // Observar elementos existentes
-            document.querySelectorAll(config.selector).forEach(function(element) {
-              observer.observe(element);
-            });
+            document
+              .querySelectorAll(config.selector)
+              .forEach(function (element) {
+                observer.observe(element);
+              });
 
             observersMap.set(config.selector, observer);
           });
@@ -317,14 +390,15 @@ const personSchema = {
             const scrollPosition = window.scrollY;
             const totalHeight = document.body.scrollHeight - window.innerHeight;
             const progress = (scrollPosition / totalHeight) * 100;
-            progressBar.style.width = Math.max(0, Math.min(100, progress)) + '%';
+            progressBar.style.width =
+              Math.max(0, Math.min(100, progress)) + '%';
           }
 
           // Throttled scroll handler for better performance
           let ticking = false;
           function handleScroll() {
             if (!ticking) {
-              requestAnimationFrame(function() {
+              requestAnimationFrame(function () {
                 updateProgressBar();
                 ticking = false;
               });
@@ -333,7 +407,9 @@ const personSchema = {
           }
 
           window.addEventListener('scroll', handleScroll, { passive: true });
-          window.addEventListener('resize', updateProgressBar, { passive: true });
+          window.addEventListener('resize', updateProgressBar, {
+            passive: true,
+          });
           updateProgressBar();
         }
 
@@ -342,9 +418,13 @@ const personSchema = {
             initializeObservers();
           } else {
             // Fallback for browsers without IntersectionObserver
-            document.querySelectorAll('.fade-in-section, .skill-category, .paragraph-container').forEach(function(element) {
-              element.classList.add('in-view', 'animate-fade-in-up');
-            });
+            document
+              .querySelectorAll(
+                '.fade-in-section, .skill-category, .paragraph-container'
+              )
+              .forEach(function (element) {
+                element.classList.add('in-view', 'animate-fade-in-up');
+              });
           }
 
           initializeProgressBar();
@@ -358,8 +438,8 @@ const personSchema = {
         }
 
         // Cleanup on page unload
-        window.addEventListener('beforeunload', function() {
-          observersMap.forEach(function(observer) {
+        window.addEventListener('beforeunload', function () {
+          observersMap.forEach(function (observer) {
             observer.disconnect();
           });
           observersMap.clear();

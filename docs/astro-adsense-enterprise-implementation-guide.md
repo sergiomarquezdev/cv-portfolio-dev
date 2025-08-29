@@ -94,19 +94,19 @@ graph TD
 <!-- BaseHead.astro - Analytics condicional -->
 <script>
   function loadGoogleAnalytics() {
-    if (typeof gtag === "undefined") {
+    if (typeof gtag === 'undefined') {
       // Cargar Google Analytics solo con consentimiento
-      const script = document.createElement("script");
+      const script = document.createElement('script');
       script.async = true;
-      script.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX";
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
       document.head.appendChild(script);
 
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
-      gtag("js", new Date());
-      gtag("config", "G-XXXXXXXXXX");
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
       window.gtag = gtag;
     }
   }
@@ -193,7 +193,7 @@ Google CMP es **obligatorio** para cumplir con GDPR/CCPA cuando usas AdSense. Be
   // Solo mostrar banner personalizado si Google CMP no está activo
   if (!isGoogleCMPActive()) {
     // Mostrar banner personalizado
-    document.querySelector(".cookie-banner").style.display = "block";
+    document.querySelector('.cookie-banner').style.display = 'block';
   }
 </script>
 ```
@@ -223,8 +223,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -259,7 +259,7 @@ name: Health Monitor
 
 on:
   schedule:
-    - cron: "0 */6 * * *" # Cada 6 horas
+    - cron: '0 */6 * * *' # Cada 6 horas
   workflow_dispatch:
 
 jobs:
@@ -338,18 +338,18 @@ Build settings:
 # .github/dependabot.yml
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     ignore:
       # Astro compatibility issues
-      - dependency-name: "tailwindcss"
-      - dependency-name: "autoprefixer"
-      - dependency-name: "postcss"
+      - dependency-name: 'tailwindcss'
+      - dependency-name: 'autoprefixer'
+      - dependency-name: 'postcss'
     commit-message:
-      prefix: "chore"
-      include: "scope"
+      prefix: 'chore'
+      include: 'scope'
 ```
 
 ### Auto-fix System
@@ -360,7 +360,7 @@ name: Dependency Updates
 
 on:
   schedule:
-    - cron: "0 2 * * 1" # Lunes a las 2 AM
+    - cron: '0 2 * * 1' # Lunes a las 2 AM
 
 jobs:
   update:
@@ -480,8 +480,8 @@ google.com, pub-7569719493920591, DIRECT, f08c47fec0942fa0
 
 ```javascript
 // Console debug
-console.log("GoogleFC loaded:", !!window.googlefc);
-console.log("Callback queue:", window.googlefc?.callbackQueue?.length);
+console.log('GoogleFC loaded:', !!window.googlefc);
+console.log('Callback queue:', window.googlefc?.callbackQueue?.length);
 ```
 
 **Q: "Analytics no carga después de consentimiento"**
@@ -588,7 +588,7 @@ npm update @astrojs/check
    // astro.config.mjs
    export default defineConfig({
      build: {
-       inlineStylesheets: "auto",
+       inlineStylesheets: 'auto',
      },
      compressHTML: true,
    });
