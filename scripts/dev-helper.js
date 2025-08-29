@@ -17,6 +17,12 @@ const commands = {
   help: () => showHelp(),
 };
 
+/**
+ * Executes a shell command safely with error handling
+ * @param {string} command - The shell command to execute
+ * @param {object} options - Options to pass to execSync
+ * @returns {string} Command output or empty string on error
+ */
 function execCommand(command, options = {}) {
   try {
     return execSync(command, {
@@ -29,6 +35,12 @@ function execCommand(command, options = {}) {
   }
 }
 
+/**
+ * Recursively counts files with a specific extension in a directory
+ * @param {string} dir - Directory path to search in
+ * @param {string} extension - File extension to count (without dot)
+ * @returns {string} Number of files found as string
+ */
 function countFiles(dir, extension) {
   try {
     function countFilesRecursive(directory) {
@@ -57,6 +69,10 @@ function countFiles(dir, extension) {
   }
 }
 
+/**
+ * Analyzes project structure, git status, and package information
+ * Displays comprehensive statistics about the Astro project
+ */
 function analyzeProject() {
   // eslint-disable-next-line no-console
   console.log('🔍 Analyzing project...\n');
@@ -122,6 +138,10 @@ function analyzeProject() {
   }
 }
 
+/**
+ * Analyzes project dependencies for outdated packages and security vulnerabilities
+ * Checks npm outdated packages and runs security audit
+ */
 function analyzeDependencies() {
   // eslint-disable-next-line no-console
   console.log('📦 Analyzing dependencies...\n');
@@ -187,6 +207,10 @@ function analyzeDependencies() {
   }
 }
 
+/**
+ * Analyzes build bundle size and identifies largest files
+ * Requires project to be built first (dist directory must exist)
+ */
 function analyzeBundleSize() {
   // eslint-disable-next-line no-console
   console.log('📏 Analyzing bundle size...\n');
@@ -263,6 +287,10 @@ function analyzeBundleSize() {
   }
 }
 
+/**
+ * Runs comprehensive project health checks
+ * Tests TypeScript, ESLint, build process, and other critical systems
+ */
 function checkProjectHealth() {
   // eslint-disable-next-line no-console
   console.log('🏥 Checking project health...\n');
@@ -327,6 +355,10 @@ function checkProjectHealth() {
   }
 }
 
+/**
+ * Displays help information about available commands
+ * Shows usage examples for all development helper commands
+ */
 function showHelp() {
   // eslint-disable-next-line no-console
   console.log('🔧 Development Helper Script\n');
