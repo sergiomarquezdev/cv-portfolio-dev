@@ -302,6 +302,16 @@ const submitButtonClasses =
     form.addEventListener('submit', async e => {
       e.preventDefault();
 
+      // Debugging utility - only logs in development environment
+      const debugLog = (message: string, ...args: any[]) => {
+        if (
+          typeof window !== 'undefined' &&
+          window.location.hostname === 'localhost'
+        ) {
+          console.log(message, ...args);
+        }
+      };
+
       // Add validation class
       form.classList.add('was-validated');
 
@@ -343,12 +353,12 @@ const submitButtonClasses =
         data.userAgent = navigator.userAgent;
         data.source = 'portfolio-contact-form';
 
-        console.log('Sending data to webhook:', data);
+        debugLog('Sending data to webhook:', data);
 
         // Log the request details for debugging
-        console.log('Webhook URL:', webhookUrl);
-        console.log('Auth Header:', authHeader ? 'Present' : 'Missing');
-        console.log('Request headers:', {
+        debugLog('Webhook URL:', webhookUrl);
+        debugLog('Auth Header:', authHeader ? 'Present' : 'Missing');
+        debugLog('Request headers:', {
           'Content-Type': 'application/json',
           'X-ContactForm-Secret': authHeader ? '***' : 'Missing',
           Accept: 'application/json',
@@ -365,15 +375,15 @@ const submitButtonClasses =
           body: JSON.stringify(data),
         });
 
-        console.log('Response status:', response.status);
-        console.log(
+        debugLog('Response status:', response.status);
+        debugLog(
           'Response headers:',
           Object.fromEntries(response.headers.entries())
         );
 
         // Log response body for debugging
         const responseText = await response.clone().text();
-        console.log('Response body:', responseText);
+        debugLog('Response body:', responseText);
 
         if (response.ok) {
           // Success

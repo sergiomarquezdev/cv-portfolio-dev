@@ -9,6 +9,15 @@ import { execSync } from 'child_process';
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import path from 'path';
 
+/**
+ * Centralized logger utility to reduce ESLint disable comments
+ * @param {...any} args - Arguments to pass to console.log
+ */
+function log(...args) {
+  // eslint-disable-next-line no-console
+  console.log(...args);
+}
+
 const commands = {
   analyze: () => analyzeProject(),
   deps: () => analyzeDependencies(),
@@ -74,8 +83,7 @@ function countFiles(dir, extension) {
  * Displays comprehensive statistics about the Astro project
  */
 function analyzeProject() {
-  // eslint-disable-next-line no-console
-  console.log('🔍 Analyzing project...\n');
+  log('🔍 Analyzing project...\n');
 
   // File counts using Windows-compatible commands
   const astroFiles = countFiles('src', 'astro');
@@ -83,16 +91,11 @@ function analyzeProject() {
   const jsFiles = countFiles('src', 'js');
   const componentFiles = countFiles('src/components', 'astro');
 
-  // eslint-disable-next-line no-console
-  console.log('📊 Project Statistics:');
-  // eslint-disable-next-line no-console
-  console.log(`   Astro files: ${astroFiles}`);
-  // eslint-disable-next-line no-console
-  console.log(`   TypeScript files: ${tsFiles}`);
-  // eslint-disable-next-line no-console
-  console.log(`   JavaScript files: ${jsFiles}`);
-  // eslint-disable-next-line no-console
-  console.log(`   Components: ${componentFiles}`);
+  log('📊 Project Statistics:');
+  log(`   Astro files: ${astroFiles}`);
+  log(`   TypeScript files: ${tsFiles}`);
+  log(`   JavaScript files: ${jsFiles}`);
+  log(`   Components: ${componentFiles}`);
 
   // Git status
   try {
@@ -100,41 +103,26 @@ function analyzeProject() {
     const status = execCommand('git status --porcelain');
     const commits = execCommand('git rev-list --count HEAD');
 
-    // eslint-disable-next-line no-console
-    console.log('\n📝 Git Status:');
-    // eslint-disable-next-line no-console
-    console.log(`   Current branch: ${branch}`);
-    // eslint-disable-next-line no-console
-    console.log(`   Total commits: ${commits}`);
-    // eslint-disable-next-line no-console
-    console.log(
-      `   Uncommitted changes: ${status ? status.split('\n').length : 0}`
-    );
+    log('\n📝 Git Status:');
+    log(`   Current branch: ${branch}`);
+    log(`   Total commits: ${commits}`);
+    log(`   Uncommitted changes: ${status ? status.split('\n').length : 0}`);
   } catch {
-    // eslint-disable-next-line no-console
-    console.log('\n📝 Git Status: Not a git repository');
+    log('\n📝 Git Status: Not a git repository');
   }
 
   // Package info
   try {
     const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
-    // eslint-disable-next-line no-console
-    console.log('\n📦 Package Info:');
-    // eslint-disable-next-line no-console
-    console.log(`   Name: ${pkg.name}`);
-    // eslint-disable-next-line no-console
-    console.log(`   Version: ${pkg.version}`);
-    // eslint-disable-next-line no-console
-    console.log(
-      `   Dependencies: ${Object.keys(pkg.dependencies || {}).length}`
-    );
-    // eslint-disable-next-line no-console
-    console.log(
+    log('\n📦 Package Info:');
+    log(`   Name: ${pkg.name}`);
+    log(`   Version: ${pkg.version}`);
+    log(`   Dependencies: ${Object.keys(pkg.dependencies || {}).length}`);
+    log(
       `   Dev Dependencies: ${Object.keys(pkg.devDependencies || {}).length}`
     );
   } catch {
-    // eslint-disable-next-line no-console
-    console.log('\n📦 Package Info: Error reading package.json');
+    log('\n📦 Package Info: Error reading package.json');
   }
 }
 
@@ -143,8 +131,7 @@ function analyzeProject() {
  * Checks npm outdated packages and runs security audit
  */
 function analyzeDependencies() {
-  // eslint-disable-next-line no-console
-  console.log('📦 Analyzing dependencies...\n');
+  log('📦 Analyzing dependencies...\n');
 
   try {
     // eslint-disable-next-line no-console
