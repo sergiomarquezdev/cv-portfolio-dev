@@ -47,7 +47,7 @@
     "@astrojs/sitemap": "^3.4.1",
     "astro": "^5.10.2",
     "preact": "^10.26.9",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
