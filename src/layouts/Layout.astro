@@ -35,7 +35,7 @@ const personSchema = {
   jobTitle: "Ingeniero Backend IA/ML",
   description: "Ingeniero Backend e IA/ML especializado en Java, Spring, Python, FastAPI, Docker, Kubernetes y Google Cloud",
   worksFor:
-    work.length > 0
+    work.length > 0 && work[0]
       ? {
           "@type": "Organization",
           name: work[0].company,

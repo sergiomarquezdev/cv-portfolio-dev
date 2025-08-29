@@ -10,18 +10,35 @@ export default defineConfig({
   output: "static",
   trailingSlash: "never",
   compressHTML: true,
+  build: {
+    inlineStylesheets: "auto",
+    assets: "_assets"
+  },
+
+  server: {
+    port: 4321,
+    host: true
+  },
 
   integrations: [
-    sitemap(),
+    sitemap({
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date(),
+    }),
     partytown({
       config: {
         forward: ["dataLayer.push"],
+        debug: false,
       },
     }),
     tailwind({
       applyBaseStyles: false,
+      nesting: true,
     }),
-    preact(),
+    preact({
+      compat: true
+    }),
   ],
 
   image: {
@@ -44,16 +61,35 @@ export default defineConfig({
             // Separate critical components
             vendor: ['@astrojs/partytown'],
           },
+          // Optimize asset naming
+          assetFileNames: 'assets/[name]-[hash][extname]',
+          chunkFileNames: 'chunks/[name]-[hash].js',
+          entryFileNames: 'entry/[name]-[hash].js',
         },
       },
       // Optimize asset inlining
       assetsInlineLimit: 4096, // 4KB threshold for inlining
-      // Enable source map for debugging (can be disabled in production)
+      // Enable source map for debugging (disabled in production)
       sourcemap: false,
+      // Optimize chunk size warnings
+      chunkSizeWarningLimit: 1000,
     },
     optimizeDeps: {
       // Exclude SSR dependencies from pre-bundling
       exclude: ['@astrojs/partytown'],
+      // Include specific dependencies for better performance
+      include: ['preact', 'preact/hooks'],
+    },
+    // Performance optimizations
+    resolve: {
+      alias: {
+        // Ensure consistent path resolution
+        '@': new URL('./src', import.meta.url).pathname,
+        '@cv': new URL('./public/cv.json', import.meta.url).pathname,
+      }
+    },
+    css: {
+      transformer: 'lightningcss',
     },
   },
 });
