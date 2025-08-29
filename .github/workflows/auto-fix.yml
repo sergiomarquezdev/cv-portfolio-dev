@@ -1,0 +1,194 @@
+name: 🤖 Auto-Fix Common Issues
+
+on:
+  workflow_dispatch:
+    inputs:
+      fix_type:
+        description: 'Type of fix to apply'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - linting
+          - dependencies
+          - formatting
+          - security
+
+  schedule:
+    # Run weekly maintenance on Sundays at 2 AM
+    - cron: '0 2 * * 0'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-fix:
+    name: 🔧 Automated Maintenance
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v5.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: ⚙️ Set up Node.js 22.x
+        uses: actions/setup-node@v4.4.0
+        with:
+          node-version: 22.x
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🧹 Auto-fix linting and formatting
+        if: github.event.inputs.fix_type == 'all' || github.event.inputs.fix_type == 'linting' || github.event.inputs.fix_type == 'formatting'
+        run: |
+          echo "🧹 Running auto-fix for linting and formatting..."
+
+          # Save current state
+          git stash push -m "Pre-autofix state" || true
+
+          # Apply fixes
+          npm run lint:eslint:fix || true
+          npm run format || true
+
+          # Check for changes
+          if ! git diff --quiet; then
+            echo "✅ Applied auto-fixes"
+            echo "LINTING_FIXED=true" >> $GITHUB_ENV
+          else
+            echo "ℹ️ No linting issues to fix"
+            echo "LINTING_FIXED=false" >> $GITHUB_ENV
+          fi
+
+      - name: 🔒 Security updates
+        if: github.event.inputs.fix_type == 'all' || github.event.inputs.fix_type == 'security'
+        run: |
+          echo "🔒 Checking for security updates..."
+
+          # Check for vulnerabilities
+          if npm audit --audit-level=moderate; then
+            echo "✅ No security vulnerabilities found"
+            echo "SECURITY_FIXED=false" >> $GITHUB_ENV
+          else
+            echo "🔧 Applying security fixes..."
+            npm audit fix --force || true
+            
+            if ! git diff --quiet package*.json; then
+              echo "✅ Applied security fixes"
+              echo "SECURITY_FIXED=true" >> $GITHUB_ENV
+            else
+              echo "ℹ️ No security fixes applied"
+              echo "SECURITY_FIXED=false" >> $GITHUB_ENV
+            fi
+          fi
+
+      - name: 📦 Update dependencies
+        if: github.event.inputs.fix_type == 'all' || github.event.inputs.fix_type == 'dependencies'
+        run: |
+          echo "📦 Checking for dependency updates..."
+          
+          # Check for outdated packages (excluding major versions)
+          npm outdated --json > outdated.json || true
+          
+          if [ -s outdated.json ]; then
+            echo "📦 Found outdated dependencies"
+            # Update patch and minor versions only
+            npx npm-check-updates -u --target minor || true
+            npm install || true
+            
+            if ! git diff --quiet package*.json; then
+              echo "✅ Updated dependencies"
+              echo "DEPS_UPDATED=true" >> $GITHUB_ENV
+            else
+              echo "ℹ️ No dependency updates available"
+              echo "DEPS_UPDATED=false" >> $GITHUB_ENV
+            fi
+          else
+            echo "✅ All dependencies are up to date"
+            echo "DEPS_UPDATED=false" >> $GITHUB_ENV
+          fi
+          
+          rm -f outdated.json
+
+      - name: 🧪 Validate changes
+        if: contains(github.env, 'LINTING_FIXED=true') || contains(github.env, 'SECURITY_FIXED=true') || contains(github.env, 'DEPS_UPDATED=true')
+        run: |
+          echo "🧪 Validating all changes..."
+          
+          # Run validation pipeline
+          npm run validate
+          
+          if [ $? -eq 0 ]; then
+            echo "✅ All validations passed"
+            echo "VALIDATION_PASSED=true" >> $GITHUB_ENV
+          else
+            echo "❌ Validation failed, reverting changes"
+            git reset --hard HEAD
+            git clean -fd
+            echo "VALIDATION_PASSED=false" >> $GITHUB_ENV
+            exit 1
+          fi
+
+      - name: 📝 Generate change summary
+        if: contains(github.env, 'VALIDATION_PASSED=true')
+        id: changes
+        run: |
+          echo "📝 Generating change summary..."
+          
+          SUMMARY=""
+          if [ "$LINTING_FIXED" = "true" ]; then
+            SUMMARY="$SUMMARY\n- 🧹 Applied ESLint and Prettier fixes"
+          fi
+          if [ "$SECURITY_FIXED" = "true" ]; then
+            SUMMARY="$SUMMARY\n- 🔒 Applied security updates"
+          fi
+          if [ "$DEPS_UPDATED" = "true" ]; then
+            SUMMARY="$SUMMARY\n- 📦 Updated dependencies"
+          fi
+          
+          if [ -n "$SUMMARY" ]; then
+            echo "HAS_CHANGES=true" >> $GITHUB_OUTPUT
+            echo "SUMMARY<<EOF" >> $GITHUB_OUTPUT
+            echo -e "$SUMMARY" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "HAS_CHANGES=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 🚀 Commit and push changes
+        if: steps.changes.outputs.HAS_CHANGES == 'true'
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "🤖 Auto-maintenance: Weekly fixes and updates
+
+          ${{ steps.changes.outputs.SUMMARY }}
+
+          - 🔄 Automated by GitHub Actions (scheduled)
+          - ✅ All validations passed
+          - 📅 Run on: $(date +'%Y-%m-%d %H:%M:%S UTC')
+
+          [skip ci]"
+          git push
+
+      - name: 📊 Report results
+        if: always()
+        run: |
+          echo "📊 Auto-fix Results Summary:"
+          echo "🧹 Linting fixes applied: ${LINTING_FIXED:-false}"
+          echo "🔒 Security fixes applied: ${SECURITY_FIXED:-false}"
+          echo "📦 Dependencies updated: ${DEPS_UPDATED:-false}"
+          echo "✅ Validation passed: ${VALIDATION_PASSED:-false}"
+          
+          if [ "${{ steps.changes.outputs.HAS_CHANGES }}" = "true" ]; then
+            echo "🎉 Auto-maintenance completed successfully!"
+          else
+            echo "ℹ️ No changes were needed"
+          fi
