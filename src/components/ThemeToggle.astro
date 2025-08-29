@@ -4,8 +4,10 @@
 
 <button
   id="theme-toggle"
-  class="text-text-muted hover:text-text transition-colors"
-  title="Toggle dark mode"
+  class="text-text-muted hover:text-text transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background rounded-md p-1"
+  aria-label="Cambiar tema de la página"
+  title="Cambiar entre modo claro y oscuro"
+  aria-pressed="false"
 >
   <svg
     id="theme-toggle-sun"
@@ -17,6 +19,7 @@
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
+    aria-hidden="true"
   >
     <circle cx="12" cy="12" r="5"></circle>
     <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -38,10 +41,11 @@
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
+    aria-hidden="true"
   >
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
   </svg>
-  <span class="sr-only">Toggle theme</span>
+  <span class="sr-only" id="theme-toggle-text">Activar modo oscuro</span>
 </button>
 
 <script is:inline>
@@ -57,16 +61,22 @@
 
   const sunIcon = document.getElementById("theme-toggle-sun");
   const moonIcon = document.getElementById("theme-toggle-moon");
+  const toggleButton = document.getElementById("theme-toggle");
+  const toggleText = document.getElementById("theme-toggle-text");
 
   const setTheme = (theme) => {
     if (theme === "light") {
       document.documentElement.classList.remove("dark");
       sunIcon.classList.remove("hidden");
       moonIcon.classList.add("hidden");
+      toggleButton.setAttribute("aria-pressed", "false");
+      toggleText.textContent = "Activar modo oscuro";
     } else {
       document.documentElement.classList.add("dark");
       sunIcon.classList.add("hidden");
       moonIcon.classList.remove("hidden");
+      toggleButton.setAttribute("aria-pressed", "true");
+      toggleText.textContent = "Activar modo claro";
     }
     window.localStorage.setItem("theme", theme);
   };
@@ -75,6 +85,10 @@
     const theme = getTheme() === "dark" ? "light" : "dark";
     setTheme(theme);
   };
+
+  // Initialize theme and accessibility attributes
+  const currentTheme = getTheme();
+  setTheme(currentTheme);
 
   document.getElementById("theme-toggle").addEventListener("click", handleToggleClick);
 
