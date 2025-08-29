@@ -19,7 +19,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const {
   title = "Sergio Márquez | Backend & IA/ML Engineer",
-  description = "Portfolio de Sergio Márquez Pérez, Ingeniero Backend e IA/ML especializado en Java, Spring, Python, FastAPI, Docker, Kubernetes y Google Cloud. Descubre mis proyectos, automatizaciones y experiencia.",
+  description = "Portfolio de Sergio Márquez Pérez, Ingeniero Backend e IA/ML con experiencia en Java Spring, Python FastAPI, Docker, Kubernetes y Google Cloud. Especialista en automatización, LLMOps y desarrollo de APIs escalables.",
 } = Astro.props;
 
 const { basics, work, education, highlightedSkills, otherSkills, databasesSkills } = cvData;
@@ -33,6 +33,7 @@ const personSchema = {
   url: siteUrl,
   image: `${siteUrl}${basics.image}`,
   jobTitle: "Ingeniero Backend IA/ML",
+  description: "Ingeniero Backend e IA/ML especializado en Java, Spring, Python, FastAPI, Docker, Kubernetes y Google Cloud",
   worksFor:
     work.length > 0
       ? {
@@ -50,6 +51,23 @@ const personSchema = {
     ...otherSkills.map((skill) => skill.name),
     ...databasesSkills.map((skill) => skill.name),
   ].filter((value, index, self) => self.indexOf(value) === index),
+  hasOccupation: {
+    "@type": "Occupation",
+    name: "Backend & IA/ML Engineer",
+    occupationLocation: {
+      "@type": "City",
+      name: `${basics.location.city}, ${basics.location.region}`
+    },
+    skills: [
+      "Java", "Spring Framework", "Python", "FastAPI", "Docker", 
+      "Kubernetes", "Google Cloud", "Machine Learning", "AI/ML"
+    ]
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: basics.email,
+    contactType: "professional"
+  }
 };
 ---
 
@@ -146,24 +164,34 @@ const personSchema = {
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Sergio Márquez Pérez" />
+    <meta name="language" content="es-ES" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="rating" content="general" />
+    <meta name="distribution" content="web" />
+    <meta name="copyright" content="© 2025 Sergio Márquez Pérez" />
     <meta
       name="keywords"
-      content="desarrollador backend, IA, ML, inteligencia artificial, machine learning, Java, Spring Framework, Python, FastAPI, Docker, Kubernetes, Google Cloud, n8n, LLMOps, portfolio"
+      content="Sergio Márquez, Backend Engineer, IA/ML Engineer, Java Spring Framework, Python FastAPI, Docker Kubernetes, Google Cloud Platform, Machine Learning, Artificial Intelligence, LLMOps, API Development, Microservices, DevOps, Automation, n8n, PostgreSQL, MongoDB, Pinecone, Portfolio Desarrollador"
     />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Portfolio de Sergio Márquez" />
     <meta
       property="og:image"
       content={new URL("/img/sergio_marquez_perez_ia_profile_og_image.png", Astro.url)}
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Sergio Márquez - Backend & IA/ML Engineer" />
     <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_US" />
 
     <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:site" content="@sergiomzdev" />
+    <meta property="twitter:creator" content="@sergiomzdev" />
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
@@ -171,19 +199,19 @@ const personSchema = {
       property="twitter:image"
       content={new URL("/img/sergio_marquez_perez_ia_profile_og_image.png", Astro.url)}
     />
-    <meta property="twitter:creator" content="@sergiomzdev" />
+    <meta property="twitter:image:alt" content="Sergio Márquez - Backend & IA/ML Engineer" />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   </head>
   <body class="font-sans">
     <!-- Skip to main content for keyboard navigation -->
-    <a 
-      href="#main-content" 
+    <a
+      href="#main-content"
       class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-md focus:shadow-lg"
     >
       Saltar al contenido principal
     </a>
-    
+
     <ScrollToTop />
     <Header />
     <main id="main-content">
