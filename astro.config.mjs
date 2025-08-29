@@ -38,6 +38,22 @@ export default defineConfig({
   vite: {
     build: {
       cssMinify: "lightningcss",
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Separate critical components
+            vendor: ['@astrojs/partytown'],
+          },
+        },
+      },
+      // Optimize asset inlining
+      assetsInlineLimit: 4096, // 4KB threshold for inlining
+      // Enable source map for debugging (can be disabled in production)
+      sourcemap: false,
+    },
+    optimizeDeps: {
+      // Exclude SSR dependencies from pre-bundling
+      exclude: ['@astrojs/partytown'],
     },
   },
 });

@@ -293,3 +293,31 @@
     animation-delay: 700ms;
   }
 }
+
+/* Performance optimizations for bundle size */
+@layer utilities {
+  /* GPU acceleration for smooth animations */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  /* Contain layout for performance */
+  .contain-layout {
+    contain: layout;
+  }
+
+  /* Optimize rendering for icon containers */
+  .icon-container {
+    contain: strict;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Critical images optimization */
+  .critical-image {
+    content-visibility: auto;
+    contain-intrinsic-size: 128px 128px;
+  }
+}
