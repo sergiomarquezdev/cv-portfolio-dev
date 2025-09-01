@@ -88,8 +88,7 @@ export default defineConfig({
         '@cv': new URL('./public/cv.json', import.meta.url).pathname,
       },
     },
-    css: {
-      transformer: 'lightningcss',
-    },
+    // Remove CSS transformer to use default PostCSS processing
+    // This ensures TailwindCSS works correctly
   },
 });
