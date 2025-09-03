@@ -17,7 +17,7 @@
     "format:check": "biome format .",
     "validate": "bun run type-check && bun run lint && bun run build",
     "build:analyze": "astro build --verbose",
-    "build:prod": "NODE_ENV=production npm run build",
+    "build:prod": "npm run build",
     "type-check:watch": "astro check --watch",
     "clean": "rimraf dist .astro",
     "clean:cache": "rimraf node_modules/.vite .astro/cache",
