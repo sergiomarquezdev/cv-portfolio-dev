@@ -18,24 +18,24 @@ fi
 LINTABLE_FILES=$(echo "$STAGED_FILES" | grep -E '\.(astro|ts|js|tsx|jsx)$' || true)
 
 if [ -n "$LINTABLE_FILES" ]; then
-  echo "📝 Checking staged files with ESLint..."
-  echo "$LINTABLE_FILES" | xargs npx eslint
+  echo "📝 Checking staged files with Biome..."
+  echo "$LINTABLE_FILES" | xargs bunx @biomejs/biome check
 
   if [ $? -ne 0 ]; then
-    echo "❌ ESLint found issues. Run 'npm run lint:fix' to fix them."
+    echo "❌ Biome found issues. Run 'bun run lint:fix' to fix them."
     exit 1
   fi
 fi
 
-# Filter formattable files for Prettier
+# Filter formattable files for Biome
 FORMATTABLE_FILES=$(echo "$STAGED_FILES" | grep -E '\.(astro|ts|js|tsx|jsx|json|md|css)$' || true)
 
 if [ -n "$FORMATTABLE_FILES" ]; then
-  echo "🎨 Checking Prettier formatting on staged files..."
-  echo "$FORMATTABLE_FILES" | xargs npx prettier --check
+  echo "🎨 Checking Biome formatting on staged files..."
+  echo "$FORMATTABLE_FILES" | xargs bunx @biomejs/biome format
 
   if [ $? -ne 0 ]; then
-    echo "❌ Prettier formatting issues found. Run 'npm run format' to fix them."
+    echo "❌ Biome formatting issues found. Run 'bun run format' to fix them."
     exit 1
   fi
 fi
@@ -45,7 +45,7 @@ TS_FILES=$(echo "$STAGED_FILES" | grep -E '\.(astro|ts|tsx)$' || true)
 
 if [ -n "$TS_FILES" ]; then
   echo "🔍 Running TypeScript check..."
-  npm run type-check
+  bun run type-check
 
   if [ $? -ne 0 ]; then
     echo "❌ TypeScript check failed. Fix the type errors before committing."

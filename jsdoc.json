@@ -1,26 +1,26 @@
 {
-  "source": {
-    "include": ["./src/", "./README.md"],
-    "includePattern": "\\.(js|ts|astro)$",
-    "exclude": ["node_modules/", "dist/", ".astro/"],
-    "excludePattern": "test"
-  },
-  "opts": {
-    "destination": "./docs/api/",
-    "recurse": true,
-    "readme": "./README.md"
-  },
-  "plugins": ["plugins/markdown"],
-  "templates": {
-    "cleverLinks": false,
-    "monospaceLinks": false
-  },
-  "sourceType": "module",
-  "tags": {
-    "allowUnknownTags": true,
-    "dictionaries": ["jsdoc", "closure"]
-  },
-  "markdown": {
-    "parser": "gfm"
-  }
+	"source": {
+		"include": ["./src/", "./README.md"],
+		"includePattern": "\\.(js|ts|astro)$",
+		"exclude": ["node_modules/", "dist/", ".astro/"],
+		"excludePattern": "test"
+	},
+	"opts": {
+		"destination": "./docs/api/",
+		"recurse": true,
+		"readme": "./README.md"
+	},
+	"plugins": ["plugins/markdown"],
+	"templates": {
+		"cleverLinks": false,
+		"monospaceLinks": false
+	},
+	"sourceType": "module",
+	"tags": {
+		"allowUnknownTags": true,
+		"dictionaries": ["jsdoc", "closure"]
+	},
+	"markdown": {
+		"parser": "gfm"
+	}
 }

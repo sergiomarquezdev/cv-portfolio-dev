@@ -1,47 +1,47 @@
 {
-  "typescript.preferences.importModuleSpecifier": "relative",
-  "typescript.suggest.autoImports": true,
-  "typescript.updateImportsOnFileMove.enabled": "always",
+	"typescript.preferences.importModuleSpecifier": "relative",
+	"typescript.suggest.autoImports": true,
+	"typescript.updateImportsOnFileMove.enabled": "always",
 
-  "astro.typescript.enabled": true,
-  "astro.format.enable": true,
+	"astro.typescript.enabled": true,
+	"astro.format.enable": true,
 
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "explicit"
-  },
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit",
+		"source.organizeImports": "explicit"
+	},
 
-  "[astro]": {
-    "editor.defaultFormatter": "astro-build.astro-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+	"[astro]": {
+		"editor.defaultFormatter": "astro-build.astro-vscode"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[css]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
 
-  "files.associations": {
-    "*.astro": "astro"
-  },
+	"files.associations": {
+		"*.astro": "astro"
+	},
 
-  "tailwindCSS.includeLanguages": {
-    "astro": "html"
-  },
-  "tailwindCSS.experimental.classRegex": [
-    ["class:list\\s*=\\s*\\[([^\\]]*)\\]", "\"([^\"]*)\""],
-    ["class:list\\s*=\\s*{([^}]*)}", "\"([^\"]*)\""]
-  ],
+	"tailwindCSS.includeLanguages": {
+		"astro": "html"
+	},
+	"tailwindCSS.experimental.classRegex": [
+		["class:list\\s*=\\s*\\[([^\\]]*)\\]", "\"([^\"]*)\""],
+		["class:list\\s*=\\s*{([^}]*)}", "\"([^\"]*)\""]
+	],
 
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/dist": true,
-    "**/.astro": true
-  },
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/dist": true,
+		"**/.astro": true
+	},
 
-  "emmet.includeLanguages": {
-    "astro": "html"
-  }
+	"emmet.includeLanguages": {
+		"astro": "html"
+	}
 }
