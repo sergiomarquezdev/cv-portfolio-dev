@@ -37,33 +37,37 @@ jobs:
         uses: actions/setup-node@v4.4.0
         with:
           node-version: 22.x
-          cache: 'npm'
+
+      - name: 🚀 Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
       - name: 📦 Install dependencies
-        run: npm ci
+        run: bun install --frozen-lockfile
 
       - name: 🔎 TypeScript validation
         run: |
           echo "🔍 Running TypeScript check..."
-          npm run type-check
+          bun run type-check
           echo "✅ TypeScript validation passed!"
 
-      - name: 🧹 ESLint code quality
+      - name: 🧹 Biome code quality
         run: |
-          echo "🧹 Running ESLint..."
-          npm run lint:eslint
+          echo "🧹 Running Biome linting..."
+          bun run lint
           echo "✅ Code quality check completed!"
 
-      - name: 💄 Prettier formatting check
+      - name: 💄 Biome formatting check
         run: |
           echo "💄 Checking code formatting..."
-          npm run format:check
+          bun run format:check
           echo "✅ Code formatting is consistent!"
 
       - name: 🏗️ Build validation
         run: |
           echo "🏗️ Building project..."
-          npm run build
+          bun run build
           echo "✅ Build completed successfully!"
 
       - name: 📊 Build metrics
@@ -97,22 +101,26 @@ jobs:
         uses: actions/setup-node@v4.4.0
         with:
           node-version: 22.x
-          cache: 'npm'
+
+      - name: 🚀 Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
       - name: 📦 Install dependencies
-        run: npm ci
+        run: bun install --frozen-lockfile
 
-      - name: 🔧 Auto-fix ESLint issues
+      - name: 🔧 Auto-fix Biome issues
         run: |
-          echo "🔧 Attempting to auto-fix ESLint issues..."
-          npm run lint:eslint:fix || true
-          echo "✅ ESLint auto-fix completed!"
+          echo "🔧 Attempting to auto-fix Biome issues..."
+          bun run lint:fix || true
+          echo "✅ Biome auto-fix completed!"
 
-      - name: 🎨 Auto-format with Prettier
+      - name: 🎨 Auto-format with Biome
         run: |
-          echo "🎨 Auto-formatting code with Prettier..."
-          npm run format
-          echo "✅ Prettier formatting completed!"
+          echo "🎨 Auto-formatting code with Biome..."
+          bun run format
+          echo "✅ Biome formatting completed!"
 
       - name: 📝 Check for changes
         id: verify-changed-files
@@ -131,10 +139,10 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
-          git commit -m "🤖 Auto-fix: ESLint and Prettier formatting
+          git commit -m "🤖 Auto-fix: Biome linting and formatting
 
-          - 🧹 Applied ESLint auto-fixes
-          - 💄 Applied Prettier formatting
+          - 🧹 Applied Biome auto-fixes
+          - 💄 Applied Biome formatting
           - 🔄 Automated by GitHub Actions
 
           [skip ci]"
@@ -144,7 +152,7 @@ jobs:
         if: steps.verify-changed-files.outputs.changed == 'true'
         run: |
           echo "🔄 Re-running validation after auto-fix..."
-          npm run validate
+          bun run validate
           echo "✅ Validation passed after auto-fix!"
 
   # 📈 Build Verification (only after successful tests)
@@ -163,10 +171,14 @@ jobs:
         uses: actions/setup-node@v4.4.0
         with:
           node-version: 22.x
-          cache: 'npm'
+
+      - name: 🚀 Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
       - name: 📦 Install dependencies
-        run: npm ci
+        run: bun install --frozen-lockfile
 
       - name: 🏗️ Production build
         run: |

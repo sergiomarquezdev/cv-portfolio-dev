@@ -40,10 +40,14 @@ jobs:
         uses: actions/setup-node@v4.4.0
         with:
           node-version: 22.x
-          cache: 'npm'
+
+      - name: 🚀 Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
       - name: 📦 Install dependencies
-        run: npm ci
+        run: bun install --frozen-lockfile
 
       - name: 🧹 Auto-fix linting and formatting
         if: github.event.inputs.fix_type == 'all' || github.event.inputs.fix_type == 'linting' || github.event.inputs.fix_type == 'formatting'
@@ -54,8 +58,8 @@ jobs:
           git stash push -m "Pre-autofix state" || true
 
           # Apply fixes
-          npm run lint:eslint:fix || true
-          npm run format || true
+          bun run lint:fix || true
+          bun run format || true
 
           # Check for changes
           if ! git diff --quiet; then
@@ -143,7 +147,7 @@ jobs:
 
           SUMMARY=""
           if [ "$LINTING_FIXED" = "true" ]; then
-            SUMMARY="$SUMMARY\n- 🧹 Applied ESLint and Prettier fixes"
+            SUMMARY="$SUMMARY\n- 🧹 Applied Biome linting and formatting fixes"
           fi
           if [ "$SECURITY_FIXED" = "true" ]; then
             SUMMARY="$SUMMARY\n- 🔒 Applied security updates"
