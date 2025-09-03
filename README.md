@@ -98,6 +98,7 @@ Este proyecto está optimizado para Cloudflare Pages con los siguientes archivos
 - **Biome:** Reemplaza ESLint + Prettier con configuración unificada
 - **Husky:** Pre-commit hooks para calidad de código automática
 - **TypeScript:** Verificación de tipos estricta con Astro Check
+- **Scripts Nativos:** Comandos de limpieza sin dependencias externas (sin rimraf)
 
 ## 🔧 Beneficios del Stack Moderno
 
