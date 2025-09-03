@@ -2,7 +2,7 @@
 
 <div align="center">
   <img src="https://img.shields.io/badge/Astro-5.13.5-orange" alt="Astro">
-  <img src="https://img.shields.io/badge/TypeScript-5.8.3-blue" alt="TypeScript">
+  <img src="https://img.shields.io/badge/TypeScript-5.9.2-blue" alt="TypeScript">
   <img src="https://img.shields.io/badge/Tailwind_CSS-3.4.17-38B2AC" alt="Tailwind CSS">
   <img src="https://img.shields.io/badge/Bun-1.2.21-black" alt="Bun">
   <img src="https://img.shields.io/badge/Biome-2.2.2-60A5FA" alt="Biome">
@@ -24,11 +24,12 @@ CV - Portfolio personal moderno y optimizado, construido con **Astro** y **Tailw
 - **Experiencia de Usuario Mejorada:** Animaciones de entrada, resaltado de navegación y transiciones suaves.
 - **Gestión de Datos y SEO:** CV en JSON, TypeScript, sitemap automático y metadatos optimizados.
 - **Toolchain Moderno:** Bun para velocidad 17x superior, Biome para linting/formatting unificado.
+- **Compatibilidad Dual:** Desarrollo optimizado con Bun, deployment confiable con npm.
 - **CI/CD:** Despliegue automático con GitHub Actions a VPS con Nginx y compatibilidad con Cloudflare Pages.
 
 ## 🛠️ Stack Tecnológico Principal
 
-- **Core:** Astro (v5.13.5), TypeScript (v5.8.3), Tailwind CSS (v3.4.17)
+- **Core:** Astro (v5.13.5), TypeScript (v5.9.2), Tailwind CSS (v3.4.17)
 - **Herramientas:** Bun (v1.2.21), Biome (v2.2.2) 
 - **Integraciones Astro:** Tailwind CSS, Partytown, Sitemap, Check
 - **Optimización:** LightningCSS, Terser
@@ -97,7 +98,7 @@ Licencia MIT. Ver archivo `LICENSE` para más detalles.
 
 Sergio Márquez - [@sergiomzdev](https://x.com/sergiomzdev) - contacto@sergiomarquez.dev
 
-Enlace del proyecto: [https://github.com/sergiomarquezdev/portfolio-dev](https://github.com/sergiomarquezdev/portfolio-dev)
+Enlace del proyecto: [https://github.com/sergiomarquezdev/cv-portfolio-dev](https://github.com/sergiomarquezdev/cv-portfolio-dev)
 
 ---
 
