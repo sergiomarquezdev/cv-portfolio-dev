@@ -1,25 +1,25 @@
 ---
-import type { ImageProps } from "../types/components";
+import type { ImageProps } from '../types/components';
 
 export interface Props extends ImageProps {}
 
 const {
-	src,
-	alt,
-	width,
-	height,
-	class: className = "",
-	loading = "lazy",
-	decoding = "async",
-	sizes,
-	srcset,
-	priority = false,
-	...rest
+  src,
+  alt,
+  width,
+  height,
+  class: className = '',
+  loading = 'lazy',
+  decoding = 'async',
+  sizes,
+  srcset,
+  priority = false,
+  ...rest
 } = Astro.props;
 
 // For critical/above-the-fold images, use eager loading
-const loadingStrategy = priority ? "eager" : loading;
-const decodingStrategy = priority ? "sync" : decoding;
+const loadingStrategy = priority ? 'eager' : loading;
+const decodingStrategy = priority ? 'sync' : decoding;
 ---
 
 <img

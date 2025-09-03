@@ -1,12 +1,12 @@
 ---
-import type { SectionProps } from "../types/components";
+import type { SectionProps } from '../types/components';
 
 export interface Props extends SectionProps {}
 
-const { title, customMargin = "mb-8", class: className, id } = Astro.props;
+const { title, customMargin = 'mb-8', class: className, id } = Astro.props;
 const headingId = title
-	? `section-heading-${title.replace(/\s+/g, "-").toLowerCase()}`
-	: "";
+  ? `section-heading-${title.replace(/\s+/g, '-').toLowerCase()}`
+  : '';
 ---
 
 <section
