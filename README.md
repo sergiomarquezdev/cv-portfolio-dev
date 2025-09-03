@@ -84,6 +84,21 @@ Este proyecto está optimizado para Cloudflare Pages con los siguientes archivos
 2. **Build output directory:** `dist`
 3. **Node.js version:** Se detecta automáticamente desde `.nvmrc`
 
+## 🧹 Mantenimiento del Proyecto
+
+### Scripts de Limpieza
+| Comando             | Descripción                                 |
+| ------------------- | ------------------------------------------- |
+| `bun run clean`     | Limpia directorios de build (dist, .astro) |
+| `bun run clean:cache` | Limpia cache de dependencias y Vite      |
+| `bun run clean:all` | Limpieza completa + eliminación node_modules |
+| `bun run reset`     | Limpieza completa + reinstalación dependencias |
+
+### Herramientas de Desarrollo
+- **Biome:** Reemplaza ESLint + Prettier con configuración unificada
+- **Husky:** Pre-commit hooks para calidad de código automática
+- **TypeScript:** Verificación de tipos estricta con Astro Check
+
 ## 🔧 Beneficios del Stack Moderno
 
 - **Bun:** Instalación de dependencias 17x más rápida que npm
