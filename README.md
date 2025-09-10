@@ -53,25 +53,25 @@ CV - Portfolio personal **minimalista y optimizado**, construido con **Astro** y
 
 ### Con Bun (Recomendado)
 
-| Comando             | Descripción                            |
-| ------------------- | -------------------------------------- |
-| `bun dev`           | Inicia servidor de desarrollo.         |
-| `bun run build`     | Compila el proyecto para producción.   |
-| `bun run preview`   | Previsualiza la build de producción.   |
-| `bun run type-check`| Verificación de tipos con TypeScript.  |
-| `bun run lint`      | Verifica calidad de código con Biome.  |
-| `bun run format`    | Formatea código con Biome.             |
+| Comando              | Descripción                           |
+| -------------------- | ------------------------------------- |
+| `bun dev`            | Inicia servidor de desarrollo.        |
+| `bun run build`      | Compila el proyecto para producción.  |
+| `bun run preview`    | Previsualiza la build de producción.  |
+| `bun run type-check` | Verificación de tipos con TypeScript. |
+| `bun run lint`       | Verifica calidad de código con Biome. |
+| `bun run format`     | Formatea código con Biome.            |
 
 ### Con npm (Compatibilidad)
 
-| Comando            | Descripción                            |
-| ------------------ | -------------------------------------- |
-| `npm run dev`      | Inicia servidor de desarrollo.         |
-| `npm run build`    | Compila el proyecto para producción.   |
-| `npm run preview`  | Previsualiza la build de producción.   |
-| `npm run type-check`| Verificación de tipos con TypeScript. |
-| `npm run lint`     | Verifica calidad de código con Biome.  |
-| `npm run format`   | Formatea código con Biome.             |
+| Comando              | Descripción                           |
+| -------------------- | ------------------------------------- |
+| `npm run dev`        | Inicia servidor de desarrollo.        |
+| `npm run build`      | Compila el proyecto para producción.  |
+| `npm run preview`    | Previsualiza la build de producción.  |
+| `npm run type-check` | Verificación de tipos con TypeScript. |
+| `npm run lint`       | Verifica calidad de código con Biome. |
+| `npm run format`     | Formatea código con Biome.            |
 
 ## 🌐 Despliegue en Cloudflare Pages
 
@@ -116,8 +116,9 @@ Este proyecto ha sido **simplificado radicalmente** siguiendo el principio KISS 
 ## 🧹 Historial de Simplificación
 
 **Enero 2025**: Simplificación radical siguiendo el principio KISS
+
 - ✅ Eliminadas 1,156+ líneas de código innecesario
-- ✅ Reducida complejidad en 85% sin pérdida de funcionalidad  
+- ✅ Reducida complejidad en 85% sin pérdida de funcionalidad
 - ✅ Scripts reducidos de 39 a 6 esenciales
 - ✅ Eliminados: GitHub Actions, Husky hooks, scripts de mantenimiento
 - ✅ Mantenido: Funcionalidad completa y deploy automático
