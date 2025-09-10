@@ -30,7 +30,7 @@ CV - Portfolio personal moderno y optimizado, construido con **Astro** y **Tailw
 ## 🛠️ Stack Tecnológico Principal
 
 - **Core:** Astro (v5.13.5), TypeScript (v5.9.2), Tailwind CSS (v3.4.17)
-- **Herramientas:** Bun (v1.2.21), Biome (v2.2.2) 
+- **Herramientas:** Bun (v1.2.21), Biome (v2.2.2)
 - **Integraciones Astro:** Tailwind CSS, Partytown, Sitemap, Check
 - **Optimización:** LightningCSS, Terser
 
@@ -52,23 +52,25 @@ CV - Portfolio personal moderno y optimizado, construido con **Astro** y **Tailw
 ## 📦 Scripts Disponibles
 
 ### Con Bun (Recomendado)
-| Comando           | Descripción                            |
-| ----------------- | -------------------------------------- |
-| `bun dev`         | Inicia servidor de desarrollo.         |
-| `bun run build`   | Compila el proyecto para producción.   |
-| `bun run preview` | Previsualiza la build de producción.   |
-| `bun run lint`    | Verifica calidad de código con Biome.  |
-| `bun run format`  | Formatea código con Biome.             |
-| `bun run validate`| Ejecuta check + lint + build.          |
+
+| Comando            | Descripción                           |
+| ------------------ | ------------------------------------- |
+| `bun dev`          | Inicia servidor de desarrollo.        |
+| `bun run build`    | Compila el proyecto para producción.  |
+| `bun run preview`  | Previsualiza la build de producción.  |
+| `bun run lint`     | Verifica calidad de código con Biome. |
+| `bun run format`   | Formatea código con Biome.            |
+| `bun run validate` | Ejecuta check + lint + build.         |
 
 ### Con npm (Compatibilidad)
-| Comando           | Descripción                            |
-| ----------------- | -------------------------------------- |
-| `npm run dev`     | Inicia servidor de desarrollo.         |
-| `npm run build`   | Compila el proyecto para producción.   |
-| `npm run preview` | Previsualiza la build de producción.   |
-| `npm run lint`    | Verifica calidad de código con Biome.  |
-| `npm run format`  | Formatea código con Biome.             |
+
+| Comando           | Descripción                           |
+| ----------------- | ------------------------------------- |
+| `npm run dev`     | Inicia servidor de desarrollo.        |
+| `npm run build`   | Compila el proyecto para producción.  |
+| `npm run preview` | Previsualiza la build de producción.  |
+| `npm run lint`    | Verifica calidad de código con Biome. |
+| `npm run format`  | Formatea código con Biome.            |
 
 ## 🌐 Despliegue en Cloudflare Pages
 
@@ -80,6 +82,7 @@ Este proyecto está optimizado para Cloudflare Pages con los siguientes archivos
 - **`public/_headers`**: Headers de seguridad y cache optimizado
 
 ### Configuración en Cloudflare Pages:
+
 1. **Build command:** `npm run build`
 2. **Build output directory:** `dist`
 3. **Node.js version:** Se detecta automáticamente desde `.nvmrc`
@@ -87,14 +90,16 @@ Este proyecto está optimizado para Cloudflare Pages con los siguientes archivos
 ## 🧹 Mantenimiento del Proyecto
 
 ### Scripts de Limpieza
-| Comando             | Descripción                                 |
-| ------------------- | ------------------------------------------- |
-| `bun run clean`     | Limpia directorios de build (dist, .astro) |
-| `bun run clean:cache` | Limpia cache de dependencias y Vite      |
-| `bun run clean:all` | Limpieza completa + eliminación node_modules |
-| `bun run reset`     | Limpieza completa + reinstalación dependencias |
+
+| Comando               | Descripción                                    |
+| --------------------- | ---------------------------------------------- |
+| `bun run clean`       | Limpia directorios de build (dist, .astro)     |
+| `bun run clean:cache` | Limpia cache de dependencias y Vite            |
+| `bun run clean:all`   | Limpieza completa + eliminación node_modules   |
+| `bun run reset`       | Limpieza completa + reinstalación dependencias |
 
 ### Herramientas de Desarrollo
+
 - **Biome:** Reemplaza ESLint + Prettier con configuración unificada
 - **Husky:** Pre-commit hooks para calidad de código automática
 - **TypeScript:** Verificación de tipos estricta con Astro Check
@@ -112,7 +117,7 @@ Licencia MIT. Ver archivo `LICENSE` para más detalles.
 
 ## 📬 Contacto
 
-Sergio Márquez - [@sergiomzdev](https://x.com/sergiomzdev) - contacto@sergiomarquez.dev
+Sergio Márquez - [@sergiomzdev](https://x.com/sergiomzdev) - sergiomarqueztech@gmail.com
 
 Enlace del proyecto: [https://github.com/sergiomarquezdev/cv-portfolio-dev](https://github.com/sergiomarquezdev/cv-portfolio-dev)
 
