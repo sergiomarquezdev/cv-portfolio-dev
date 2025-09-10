@@ -54,9 +54,8 @@ export { default as Spring } from './tech/spring.astro';
 export { default as ArrowUpIcon } from './ui/ArrowUpIcon.astro';
 export { default as MenuIcon } from './ui/MenuIcon.astro';
 
-// Type definition
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SocialIcon = Record<string, any>;
+// Type definition for Astro components
+export type SocialIcon = Record<string, unknown>;
 
 /**
  * Usage Examples:
