@@ -131,7 +131,7 @@ Licencia MIT. Ver archivo `LICENSE` para más detalles.
 
 ## 📬 Contacto
 
-Sergio Márquez - [@sergiomzdev](https://x.com/sergiomzdev) - sergiomarqueztech@gmail.com
+Sergio Márquez - [@sergiomarquezp_](https://x.com/sergiomarquezp_) - sergiomarqueztech@gmail.com
 
 Enlace del proyecto: [https://github.com/sergiomarquezdev/cv-portfolio-dev](https://github.com/sergiomarquezdev/cv-portfolio-dev)
 
