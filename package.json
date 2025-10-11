@@ -15,7 +15,7 @@
     "@astrojs/partytown": "^2.1.4",
     "@astrojs/preact": "^4.1.1",
     "@astrojs/sitemap": "^3.5.1",
-    "astro": "^5.13.7",
+    "astro": "^5.14.4",
     "preact": "^10.27.1",
     "typescript": "^5.9.2"
   },
