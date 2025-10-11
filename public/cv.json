@@ -17,13 +17,13 @@
     "profiles": [
       {
         "network": "LinkedIn",
-        "username": "sergiomarquezdev",
-        "url": "https://www.linkedin.com/in/sergiomarquezdev/"
+        "username": "sergiomarquezp",
+        "url": "https://www.linkedin.com/in/sergiomarquezp/"
       },
       {
         "network": "X",
-        "username": "sergiomzdev",
-        "url": "https://x.com/sergiomzdev/"
+        "username": "sergiomarquezp_",
+        "url": "https://x.com/sergiomarquezp_/"
       },
       {
         "network": "GitHub",
@@ -32,8 +32,8 @@
       },
       {
         "network": "YouTube",
-        "username": "sergiomarquezdev",
-        "url": "https://www.youtube.com/@sergiomarquezdev"
+        "username": "sergiomarquezp",
+        "url": "https://www.youtube.com/@sergiomarquezp"
       }
     ]
   },
